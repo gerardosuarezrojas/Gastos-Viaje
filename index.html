@@ -17,4 +17,281 @@
         :root {
             --primary: #1a1a2e; --secondary: #16213e; --accent: #e8a735;
             --accent-soft: #f4c769; --text-light: #eaeaea; --text-muted: #a8a8a8;
-            --success: #6bcf7f; --dange
+            --success: #6bcf7f; --danger: #ff6b6b; --border: #2a2a3e; --blue: #5dade2;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-light); min-height: 100vh; padding-bottom: 40px;
+            overflow-x: hidden; overflow-y: auto; -webkit-touch-callout: none;
+        }
+        .container { max-width: 500px; margin: 0 auto; padding: 16px; }
+        .header { text-align: center; padding: 24px 0 16px; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
+        .header h1 { font-size: 28px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+        .header p { color: var(--text-muted); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+        .user-selector { background: linear-gradient(135deg, rgba(93,173,226,0.1) 0%, rgba(93,173,226,0.05) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; }
+        .user-display { display: flex; justify-content: space-between; align-items: center; }
+        .user-name { font-size: 14px; font-weight: 600; color: var(--blue); text-transform: uppercase; }
+        .edit-btn { background: rgba(93,173,226,0.2); color: var(--blue); border: 1px solid var(--blue); padding: 6px 10px; border-radius: 6px; font-size: 14px; cursor: pointer; -webkit-appearance: none; }
+        .total-section { background: linear-gradient(135deg, rgba(232,167,53,0.1) 0%, rgba(232,167,53,0.05) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: center; }
+        .total-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+        .total-amount { font-size: 42px; font-weight: 700; color: var(--accent); }
+        .total-currency { font-size: 24px; color: var(--accent-soft); }
+        .form-section { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 8px; }
+        input, select { width: 100%; background: var(--primary); border: 1px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; font-size: 16px; -webkit-appearance: none; appearance: none; }
+        input:focus, select:focus { outline: none; border-color: var(--accent); }
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .type-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .type-btn { background: var(--primary); border: 2px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; text-transform: uppercase; -webkit-appearance: none; }
+        .type-btn.active { border-color: var(--accent); background: rgba(232,167,53,0.2); color: var(--accent); }
+        .btn-primary { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%); color: var(--primary); padding: 14px; border-radius: 8px; font-weight: 700; font-size: 14px; text-transform: uppercase; border: none; cursor: pointer; width: 100%; margin-bottom: 12px; -webkit-appearance: none; }
+        .btn-stats { background: var(--primary); color: var(--text-light); border: 1px solid var(--border); padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; text-transform: uppercase; width: 100%; -webkit-appearance: none; }
+        .btn-stats:active { background: var(--border); }
+        .expenses-section { margin-bottom: 24px; }
+        .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+        #expensesList { display: flex; flex-direction: column; gap: 12px; }
+        .expense-item { background: var(--secondary); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; position: relative; overflow: hidden; }
+        .expense-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+        .expense-item.compartido::before { background: var(--blue); }
+        .expense-left { flex: 1; min-width: 0; }
+        .expense-concept { font-weight: 600; font-size: 14px; color: var(--text-light); margin-bottom: 6px; word-wrap: break-word; }
+        .expense-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; color: var(--text-muted); }
+        .expense-amount { font-size: 16px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+        .expense-delete { background: rgba(255,107,107,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; -webkit-appearance: none; }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+        .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+        .user-modal, .stats-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
+        .user-modal.show, .stats-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .user-modal-content, .stats-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 80vh; overflow-y: auto; }
+        .user-modal-title, .stats-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
+        .stats-title { font-size: 18px; }
+        .user-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .user-option { background: var(--primary); border: 2px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-align: center; -webkit-appearance: none; }
+        .user-option:active { transform: scale(0.95); }
+        .user-modal-close, .close-stats { width: 100%; margin-top: 12px; background: var(--primary); color: var(--text-light); border: 1px solid var(--border); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-transform: uppercase; -webkit-appearance: none; }
+        .stats-row { background: var(--primary); border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .stats-label { font-size: 13px; font-weight: 600; color: var(--text-light); }
+        .stats-value { font-size: 16px; font-weight: 700; color: var(--accent); }
+        .stats-row.total { border-color: var(--accent); background: rgba(232,167,53,0.1); }
+        .location-item { background: var(--primary); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+        .location-name { color: var(--text-light); font-weight: 600; }
+        .location-amount { color: var(--accent); font-weight: 700; }
+        .save-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 999; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Viaje Aniversario</h1>
+            <p>Rastreador de Gastos</p>
+        </div>
+
+        <div class="user-selector">
+            <div class="user-display">
+                <span class="user-name">👤 <span id="userName">Jerry</span></span>
+                <button class="edit-btn" onclick="openUserSelector()">Cambiar</button>
+            </div>
+        </div>
+
+        <div class="total-section">
+            <div class="total-label">Gasto Total</div>
+            <div><span class="total-currency">€</span><span class="total-amount" id="totalAmount">0</span></div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-group">
+                <label class="form-label">Tipo de Gasto</label>
+                <div class="type-selector">
+                    <button class="type-btn active" onclick="selectType('personal', event)">👤 Personal</button>
+                    <button class="type-btn" onclick="selectType('compartido', event)">👥 Compartido</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="amount">Monto (€)</label>
+                <input type="number" id="amount" placeholder="0.00" step="0.01" min="0" inputmode="decimal">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="concept">Concepto</label>
+                <input type="text" id="concept" placeholder="Hotel, comida, entrada, etc." autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="location">Lugar</label>
+                <select id="location" onchange="updateLocationField()">
+                    <option value="">Selecciona un lugar...</option>
+                    <option value="Múnich">🏙️ Múnich</option>
+                    <option value="Castillo Neuschwanstein">🏰 Castillo Neuschwanstein</option>
+                    <option value="Praga">🌉 Praga</option>
+                    <option value="Verona">🌹 Verona</option>
+                    <option value="Salzburgo">🎼 Salzburgo</option>
+                    <option value="Innsbruck">⛰️ Innsbruck</option>
+                    <option value="Lago de Garda">🌊 Lago de Garda</option>
+                    <option value="otro">✏️ Agregar manualmente</option>
+                </select>
+            </div>
+            <div class="form-group" id="customLocationGroup" style="display:none;">
+                <label class="form-label" for="customLocation">Lugar Personalizado</label>
+                <input type="text" id="customLocation" placeholder="Escribe el lugar...">
+            </div>
+            <button class="btn-primary" onclick="addExpense()">💾 Guardar Gasto</button>
+            <button class="btn-stats" onclick="showStats()">📊 Ver Estadísticas</button>
+        </div>
+
+        <div class="expenses-section">
+            <div class="section-title">Gastos Registrados</div>
+            <div id="expensesList"></div>
+        </div>
+    </div>
+
+    <div class="user-modal" id="userModal">
+        <div class="user-modal-content">
+            <div class="user-modal-title">¿Quién Eres?</div>
+            <div class="user-options">
+                <button class="user-option" onclick="selectUser('Jerry')">👨 Jerry</button>
+                <button class="user-option" onclick="selectUser('Pareja')">👩 Pareja</button>
+                <button class="user-option" onclick="selectUser('Ambos')">👫 Ambos</button>
+                <button class="user-option" onclick="selectUser('Otro')">❓ Otro</button>
+            </div>
+            <button class="user-modal-close" onclick="closeUserSelector()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="stats-modal" id="statsModal">
+        <div class="stats-content">
+            <div class="stats-title">📊 Estadísticas</div>
+            <div class="stats-row total">
+                <span class="stats-label">GASTO TOTAL</span>
+                <span class="stats-value">€<span id="statsTotalAmount">0</span></span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">Personal</span>
+                <span class="stats-value">€<span id="statsPersonalAmount">0</span></span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">Compartido</span>
+                <span class="stats-value">€<span id="statsSharedAmount">0</span></span>
+            </div>
+            <div style="margin-top:16px;">
+                <div style="font-size:13px; font-weight:700; color:var(--accent); margin-bottom:8px;">Por Lugar:</div>
+                <div id="locationList"></div>
+            </div>
+            <button class="close-stats" onclick="closeStats()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        let expenses = [];
+        let currentUser = localStorage.getItem('currentUser') || 'Jerry';
+        let selectedType = 'personal';
+        let selectedLocation = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('expenses');
+            if (saved) { try { expenses = JSON.parse(saved); } catch(e) { expenses = []; } }
+            updateUserDisplay();
+            renderExpenses();
+            document.getElementById('concept').addEventListener('keypress', e => { if (e.key === 'Enter') addExpense(); });
+            document.getElementById('userModal').addEventListener('click', e => { if (e.target.id === 'userModal') closeUserSelector(); });
+            document.getElementById('statsModal').addEventListener('click', e => { if (e.target.id === 'statsModal') closeStats(); });
+        });
+
+        function selectType(type, e) {
+            selectedType = type;
+            document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+        }
+
+        function updateLocationField() {
+            const sel = document.getElementById('location');
+            const grp = document.getElementById('customLocationGroup');
+            if (sel.value === 'otro') {
+                grp.style.display = 'block';
+                selectedLocation = '';
+                document.getElementById('customLocation').addEventListener('input', e => { selectedLocation = e.target.value; });
+            } else {
+                grp.style.display = 'none';
+                selectedLocation = sel.value;
+            }
+        }
+
+        function addExpense() {
+            const amountInput = document.getElementById('amount');
+            const conceptInput = document.getElementById('concept');
+            const locationSelect = document.getElementById('location');
+            const amount = parseFloat(amountInput.value);
+            const concept = conceptInput.value.trim();
+            let location = selectedLocation || (locationSelect.value !== 'otro' ? locationSelect.value : document.getElementById('customLocation').value.trim());
+            if (!amount || amount <= 0 || !concept) { alert('Por favor completa monto y concepto'); return; }
+            if (!location) { alert('Por favor selecciona o escribe un lugar'); return; }
+            const now = new Date();
+            expenses.unshift({ id: Date.now(), amount, concept, type: selectedType, date: now.toLocaleDateString('es-ES'), time: now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}), location, timestamp: now.getTime(), user: currentUser });
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            renderExpenses();
+            amountInput.value = ''; conceptInput.value = ''; locationSelect.value = '';
+            document.getElementById('customLocationGroup').style.display = 'none';
+            document.getElementById('customLocation').value = '';
+            selectedLocation = '';
+            document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.type-btn')[0].classList.add('active');
+            selectedType = 'personal';
+            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '✅ Gasto guardado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+        }
+
+        function renderExpenses() {
+            const list = document.getElementById('expensesList');
+            if (expenses.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💰</div><p>Sin gastos registrados aún</p></div>';
+                document.getElementById('totalAmount').textContent = '0';
+                return;
+            }
+            list.innerHTML = expenses.map(e => `
+                <div class="expense-item ${e.type}">
+                    <div class="expense-left">
+                        <div class="expense-concept">${e.concept}</div>
+                        <div class="expense-meta">
+                            <span>${e.type === 'personal' ? '👤 Personal' : '👥 Compartido'}</span>
+                            <span>🕐 ${e.time}</span>
+                            <span>📍 ${e.location}</span>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+                        <div class="expense-amount">€${e.amount.toFixed(2)}</div>
+                        <button class="expense-delete" onclick="deleteExpense(${e.id})">✕ Borrar</button>
+                    </div>
+                </div>`).join('');
+            document.getElementById('totalAmount').textContent = expenses.reduce((s,e) => s + e.amount, 0).toFixed(2);
+        }
+
+        function deleteExpense(id) {
+            if (confirm('¿Borrar este gasto?')) {
+                expenses = expenses.filter(e => e.id !== id);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                renderExpenses();
+            }
+        }
+
+        function showStats() {
+            if (expenses.length === 0) { alert('No hay gastos aún'); return; }
+            const total = expenses.reduce((s,e) => s + e.amount, 0);
+            const personal = expenses.filter(e => e.type === 'personal').reduce((s,e) => s + e.amount, 0);
+            document.getElementById('statsTotalAmount').textContent = total.toFixed(2);
+            document.getElementById('statsPersonalAmount').textContent = personal.toFixed(2);
+            document.getElementById('statsSharedAmount').textContent = (total - personal).toFixed(2);
+            const byLoc = {};
+            expenses.forEach(e => { byLoc[e.location] = (byLoc[e.location] || 0) + e.amount; });
+            document.getElementById('locationList').innerHTML = Object.entries(byLoc).sort((a,b) => b[1]-a[1]).map(([loc,amt]) => `<div class="location-item"><span class="location-name">📍 ${loc}</span><span class="location-amount">€${amt.toFixed(2)}</span></div>`).join('');
+            document.getElementById('statsModal').classList.add('show');
+        }
+
+        function closeStats() { document.getElementById('statsModal').classList.remove('show'); }
+        function openUserSelector() { document.getElementById('userModal').classList.add('show'); }
+        function closeUserSelector() { document.getElementById('userModal').classList.remove('show'); }
+        function selectUser(user) {
+            currentUser = user; localStorage.setItem('currentUser', user); updateUserDisplay(); closeUserSelector();
+            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = `👤 ${user}`; document.body.appendChild(n); setTimeout(() => n.remove(), 2000);
+        }
+        function updateUserDisplay() { document.getElementById('userName').textContent = currentUser; }
+    </script>
+</body>
+</html>
