@@ -48,12 +48,10 @@
         .type-btn.active { border-color: var(--accent); background: rgba(232,167,53,0.2); color: var(--accent); }
         .btn-primary { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%); color: var(--primary); padding: 14px; border-radius: 8px; font-weight: 700; font-size: 14px; text-transform: uppercase; border: none; cursor: pointer; width: 100%; margin-bottom: 12px; -webkit-appearance: none; font-family: inherit; }
         .btn-stats { background: var(--primary); color: var(--text-light); border: 1px solid var(--border); padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; text-transform: uppercase; width: 100%; -webkit-appearance: none; font-family: inherit; }
-
-        /* Compartido section */
         .compartido-section { display: none; background: rgba(93,173,226,0.05); border: 1px solid rgba(93,173,226,0.2); border-radius: 10px; padding: 14px; margin-bottom: 16px; }
         .compartido-section.show { display: block; }
         .participantes-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-        .participante-btn { background: var(--primary); border: 2px solid var(--border); color: var(--text-muted); padding: 10px 6px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-align: center; -webkit-appearance: none; font-family: inherit; transition: all 0.2s; }
+        .participante-btn { background: var(--primary); border: 2px solid var(--border); color: var(--text-muted); padding: 10px 6px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-align: center; -webkit-appearance: none; font-family: inherit; }
         .participante-btn.selected { border-color: var(--blue); background: rgba(93,173,226,0.2); color: var(--blue); }
         .participante-btn.payer { border-color: var(--accent); background: rgba(232,167,53,0.15); color: var(--accent); opacity: 0.6; }
         .division-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
@@ -66,8 +64,6 @@
         .monto-row input { padding: 8px 12px; font-size: 14px; }
         .preview-division { background: var(--primary); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
         .preview-division span { color: var(--accent); font-weight: 700; }
-
-        /* Expenses */
         .expenses-section { margin-bottom: 24px; }
         .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
         #expensesList { display: flex; flex-direction: column; gap: 12px; }
@@ -82,8 +78,6 @@
         .expense-delete { background: rgba(255,107,107,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; -webkit-appearance: none; }
         .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
-
-        /* Modals */
         .user-modal, .stats-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
         .user-modal.show, .stats-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
         .user-modal-content, .stats-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; }
@@ -105,6 +99,8 @@
         .location-name { color: var(--text-light); font-weight: 600; }
         .location-amount { color: var(--accent); font-weight: 700; }
         .save-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 999; white-space: nowrap; }
+        .undo-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #2a2a3e; border: 1px solid var(--danger); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 999; display: flex; align-items: center; gap: 12px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .undo-btn { background: var(--danger); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
     </style>
 </head>
 <body>
@@ -134,17 +130,14 @@
                     <button class="type-btn" onclick="selectType('compartido', event)">👥 Compartido</button>
                 </div>
             </div>
-
             <div class="form-group">
                 <label class="form-label" for="amount">Monto Total (€)</label>
                 <input type="number" id="amount" placeholder="0.00" step="0.01" min="0" inputmode="decimal" oninput="updatePreview()">
             </div>
-
             <div class="form-group">
                 <label class="form-label" for="concept">Concepto</label>
                 <input type="text" id="concept" placeholder="Hotel, comida, entrada, etc." autocomplete="off">
             </div>
-
             <div class="form-group">
                 <label class="form-label" for="location">Lugar</label>
                 <select id="location" onchange="updateLocationField()">
@@ -164,17 +157,14 @@
                 <input type="text" id="customLocation" placeholder="Escribe el lugar...">
             </div>
 
-            <!-- Sección compartido -->
             <div class="compartido-section" id="compartidoSection">
                 <div class="form-label" style="margin-bottom:10px;">¿Quién participó?</div>
                 <div class="participantes-grid" id="participantesGrid"></div>
-
                 <div class="form-label" style="margin-bottom:8px;">¿Cómo dividir?</div>
                 <div class="division-btns">
                     <button class="division-btn active" onclick="selectDivision('parejo', event)">🔀 Parejo</button>
                     <button class="division-btn" onclick="selectDivision('manual', event)">✏️ Manual</button>
                 </div>
-
                 <div class="montos-manuales" id="montosManual"></div>
                 <div class="preview-division" id="previewDivision"></div>
             </div>
@@ -189,7 +179,6 @@
         </div>
     </div>
 
-    <!-- User Modal -->
     <div class="user-modal" id="userModal">
         <div class="user-modal-content">
             <div class="user-modal-title">¿Quién Eres?</div>
@@ -205,7 +194,6 @@
         </div>
     </div>
 
-    <!-- Stats Modal -->
     <div class="stats-modal" id="statsModal">
         <div class="stats-content">
             <div class="stats-title">📊 Estadísticas</div>
@@ -221,13 +209,10 @@
                 <span class="stats-label">Compartido (pagué yo)</span>
                 <span class="stats-value">€<span id="statsSharedAmount">0</span></span>
             </div>
-
             <div class="stats-section-title">💸 Me deben</div>
             <div id="deudasList"></div>
-
             <div class="stats-section-title">📍 Por Lugar</div>
             <div id="locationList"></div>
-
             <button class="close-stats" onclick="closeStats()">Cerrar</button>
         </div>
     </div>
@@ -244,6 +229,9 @@
         let selectedLocation = '';
         let divisionMode = 'parejo';
         let participantesSeleccionados = [];
+        let lastDeleted = null;
+        let undoTimer = null;
+        let undoElement = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('expenses');
@@ -316,7 +304,6 @@
             const preview = document.getElementById('previewDivision');
             if (!preview) return;
             if (selectedType !== 'compartido' || amount === 0) { preview.innerHTML = ''; return; }
-
             if (divisionMode === 'parejo') {
                 const total = participantesSeleccionados.length + 1;
                 const porPersona = amount / total;
@@ -352,7 +339,6 @@
             const amount = parseFloat(amountInput.value);
             const concept = conceptInput.value.trim();
             let location = selectedLocation || (locationSelect.value !== 'otro' ? locationSelect.value : document.getElementById('customLocation').value.trim());
-
             if (!amount || amount <= 0 || !concept) { alert('Por favor completa monto y concepto'); return; }
             if (!location) { alert('Por favor selecciona o escribe un lugar'); return; }
 
@@ -373,12 +359,7 @@
             }
 
             const now = new Date();
-            expenses.unshift({
-                id: Date.now(), amount, concept, type: selectedType,
-                date: now.toLocaleDateString('es-ES'),
-                time: now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
-                location, timestamp: now.getTime(), user: currentUser, deudas
-            });
+            expenses.unshift({ id: Date.now(), amount, concept, type: selectedType, date: now.toLocaleDateString('es-ES'), time: now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}), location, timestamp: now.getTime(), user: currentUser, deudas });
             localStorage.setItem('expenses', JSON.stringify(expenses));
             renderExpenses();
 
@@ -409,9 +390,7 @@
             list.innerHTML = expenses.map(e => {
                 let deudasHtml = '';
                 if (e.type === 'compartido' && e.deudas && Object.keys(e.deudas).length > 0) {
-                    deudasHtml = '<div class="expense-deudas">' +
-                        Object.entries(e.deudas).map(([u, v]) => `${u}: €${v.toFixed(2)}`).join(' · ') +
-                        '</div>';
+                    deudasHtml = '<div class="expense-deudas">' + Object.entries(e.deudas).map(([u,v]) => `${u}: €${v.toFixed(2)}`).join(' · ') + '</div>';
                 }
                 return `<div class="expense-item ${e.type}">
                     <div class="expense-left">
@@ -433,23 +412,47 @@
         }
 
         function deleteExpense(id) {
-            if (confirm('¿Borrar este gasto?')) {
-                expenses = expenses.filter(e => e.id !== id);
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                renderExpenses();
-            }
+            const idx = expenses.findIndex(e => e.id === id);
+            if (idx === -1) return;
+            lastDeleted = { expense: expenses[idx], idx };
+            expenses.splice(idx, 1);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            renderExpenses();
+            showUndoNotification();
+        }
+
+        function showUndoNotification() {
+            if (undoElement) undoElement.remove();
+            if (undoTimer) clearTimeout(undoTimer);
+            undoElement = document.createElement('div');
+            undoElement.className = 'undo-notification';
+            undoElement.innerHTML = `🗑️ Gasto eliminado <button class="undo-btn" onclick="undoDelete()">↩ Deshacer</button>`;
+            document.body.appendChild(undoElement);
+            undoTimer = setTimeout(() => {
+                if (undoElement) { undoElement.remove(); undoElement = null; }
+                lastDeleted = null;
+            }, 6000);
+        }
+
+        function undoDelete() {
+            if (!lastDeleted) return;
+            expenses.splice(lastDeleted.idx, 0, lastDeleted.expense);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            renderExpenses();
+            if (undoElement) { undoElement.remove(); undoElement = null; }
+            if (undoTimer) clearTimeout(undoTimer);
+            lastDeleted = null;
+            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '↩ Gasto restaurado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
         }
 
         function showStats() {
             const total = expenses.reduce((s,e) => s + e.amount, 0);
             const personal = expenses.filter(e => e.type === 'personal').reduce((s,e) => s + e.amount, 0);
             const compartido = expenses.filter(e => e.type === 'compartido').reduce((s,e) => s + e.amount, 0);
-
             document.getElementById('statsTotalAmount').textContent = total.toFixed(2);
             document.getElementById('statsPersonalAmount').textContent = personal.toFixed(2);
             document.getElementById('statsSharedAmount').textContent = compartido.toFixed(2);
 
-            // Calcular deudas
             const deudas = {};
             expenses.filter(e => e.type === 'compartido' && e.deudas).forEach(e => {
                 Object.entries(e.deudas).forEach(([persona, monto]) => {
@@ -465,15 +468,10 @@
                 deudasList.innerHTML = Object.entries(deudas).map(([persona, items]) => {
                     const totalDeuda = items.reduce((s,i) => s + i.monto, 0);
                     const detalles = items.map(i => `<div class="deuda-detalle">📍 ${i.location} — ${i.concept}: €${i.monto.toFixed(2)}</div>`).join('');
-                    return `<div class="deuda-card">
-                        <div class="deuda-nombre">👤 ${persona}</div>
-                        ${detalles}
-                        <div class="deuda-total">Total: €${totalDeuda.toFixed(2)}</div>
-                    </div>`;
+                    return `<div class="deuda-card"><div class="deuda-nombre">👤 ${persona}</div>${detalles}<div class="deuda-total">Total: €${totalDeuda.toFixed(2)}</div></div>`;
                 }).join('');
             }
 
-            // Por lugar
             const byLoc = {};
             expenses.forEach(e => { byLoc[e.location] = (byLoc[e.location] || 0) + e.amount; });
             document.getElementById('locationList').innerHTML = Object.entries(byLoc).sort((a,b) => b[1]-a[1])
