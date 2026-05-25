@@ -67,7 +67,7 @@
         .user-modal-content, .stats-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 80vh; overflow-y: auto; }
         .user-modal-title, .stats-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
         .stats-title { font-size: 18px; }
-        .user-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .user-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .user-option { background: var(--primary); border: 2px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-align: center; -webkit-appearance: none; }
         .user-option:active { transform: scale(0.95); }
         .user-modal-close, .close-stats { width: 100%; margin-top: 12px; background: var(--primary); color: var(--text-light); border: 1px solid var(--border); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-transform: uppercase; -webkit-appearance: none; }
@@ -90,7 +90,7 @@
 
         <div class="user-selector">
             <div class="user-display">
-                <span class="user-name">👤 <span id="userName">Jerry</span></span>
+                <span class="user-name">👤 <span id="userName">Gerar</span></span>
                 <button class="edit-btn" onclick="openUserSelector()">Cambiar</button>
             </div>
         </div>
@@ -149,11 +149,11 @@
             <div class="user-modal-title">¿Quién Eres?</div>
             <div class="user-options">
                 <button class="user-option" onclick="selectUser('Dan')">👤 Dan</button>
-<button class="user-option" onclick="selectUser('Luis')">👤 Luis</button>
-<button class="user-option" onclick="selectUser('Martucha')">👤 Martucha</button>
-<button class="user-option" onclick="selectUser('Gorda')">👤 Gorda</button>
-<button class="user-option" onclick="selectUser('Papá')">👤 Papá</button>
-<button class="user-option" onclick="selectUser('Gerar')">👤 Gerar</button>
+                <button class="user-option" onclick="selectUser('Luis')">👤 Luis</button>
+                <button class="user-option" onclick="selectUser('Martucha')">👤 Martucha</button>
+                <button class="user-option" onclick="selectUser('Gorda')">👤 Gorda</button>
+                <button class="user-option" onclick="selectUser('Papá')">👤 Papá</button>
+                <button class="user-option" onclick="selectUser('Gerar')">👤 Gerar</button>
             </div>
             <button class="user-modal-close" onclick="closeUserSelector()">Cerrar</button>
         </div>
@@ -183,8 +183,15 @@
     </div>
 
     <script>
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('SW registrado'))
+                .catch(err => console.log('SW error:', err));
+        }
+
         let expenses = [];
-        let currentUser = localStorage.getItem('currentUser') || 'Jerry';
+        let currentUser = localStorage.getItem('currentUser') || 'Gerar';
         let selectedType = 'personal';
         let selectedLocation = '';
 
