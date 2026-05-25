@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gastos-viaje-v1';
+const CACHE_NAME = 'gastos-viaje-v3';
 const FILES = ['/', '/index.html', '/manifest.json', '/icon.png'];
 
 self.addEventListener('install', e => {
