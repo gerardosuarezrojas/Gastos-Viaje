@@ -37,8 +37,8 @@
         .total-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
         .total-amount { font-size: 42px; font-weight: 700; color: var(--accent); }
         .total-currency { font-size: 24px; color: var(--accent-soft); }
-
-        /* Barras de Presupuesto */
+        .grand-total { margin-top: 8px; font-size: 12px; color: var(--text-muted); }
+        .grand-total span { color: var(--accent-soft); font-weight: 700; }
         .budget-section { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
         .budget-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 12px; }
         .budget-bar-group { margin-bottom: 14px; }
@@ -49,8 +49,6 @@
         .budget-bar-amounts span { color: var(--accent); font-weight: 700; }
         .budget-bar-track { height: 10px; background: var(--primary); border-radius: 99px; overflow: hidden; }
         .budget-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease, background 0.6s ease; width: 0%; }
-
-        /* Budget Modal */
         .budget-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
         .budget-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
         .budget-modal-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; }
@@ -60,8 +58,6 @@
         .budget-modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .btn-confirm { background: linear-gradient(135deg, var(--accent), var(--accent-soft)); color: var(--primary); border: none; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
         .btn-cancel { background: var(--primary); color: var(--text-light); border: 1px solid var(--border); padding: 12px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
-
-        /* Form */
         .form-section { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
         .form-group { margin-bottom: 16px; }
         .form-label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 8px; }
@@ -89,8 +85,6 @@
         .monto-row input { padding: 8px 12px; font-size: 14px; }
         .preview-division { background: var(--primary); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
         .preview-division span { color: var(--accent); font-weight: 700; }
-
-        /* Expenses */
         .expenses-section { margin-bottom: 24px; }
         .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
         #expensesList { display: flex; flex-direction: column; gap: 12px; }
@@ -107,8 +101,6 @@
         .expense-delete { background: rgba(255,107,107,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; -webkit-appearance: none; }
         .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
-
-        /* Modals */
         .user-modal, .stats-modal, .edit-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
         .user-modal.show, .stats-modal.show, .edit-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
         .user-modal-content, .stats-content, .edit-modal-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; }
@@ -149,30 +141,26 @@
         </div>
 
         <div class="total-section">
-            <div class="total-label">Gasto Total</div>
+            <div class="total-label">📅 Gasto Diario — <span id="todayDateLabel"></span></div>
             <div><span class="total-currency">€</span><span class="total-amount" id="totalAmount">0</span></div>
+            <div class="grand-total">Total viaje: €<span id="grandTotal">0</span></div>
         </div>
 
-        <!-- Barras de Presupuesto -->
         <div class="budget-section">
             <div class="budget-title">📊 Barras de Presupuesto</div>
             <div class="budget-bar-group">
                 <div class="budget-bar-header" onclick="openBudgetModal('total')">
                     <span class="budget-bar-label">💰 Presupuesto Total</span>
-                    <span class="budget-bar-amounts">€<span id="spentTotal">0</span> / <span id="budgetTotalLabel">€0 — toca para configurar</span></span>
+                    <span class="budget-bar-amounts">€<span id="spentTotal">0</span> / <span id="budgetTotalLabel">toca para configurar</span></span>
                 </div>
-                <div class="budget-bar-track">
-                    <div class="budget-bar-fill" id="barTotal"></div>
-                </div>
+                <div class="budget-bar-track"><div class="budget-bar-fill" id="barTotal"></div></div>
             </div>
             <div class="budget-bar-group">
                 <div class="budget-bar-header" onclick="openBudgetModal('daily')">
                     <span class="budget-bar-label">📅 Presupuesto Diario</span>
-                    <span class="budget-bar-amounts">€<span id="spentToday">0</span> / <span id="budgetDailyLabel">€0 — toca para configurar</span></span>
+                    <span class="budget-bar-amounts">€<span id="spentToday">0</span> / <span id="budgetDailyLabel">toca para configurar</span></span>
                 </div>
-                <div class="budget-bar-track">
-                    <div class="budget-bar-fill" id="barDaily"></div>
-                </div>
+                <div class="budget-bar-track"><div class="budget-bar-fill" id="barDaily"></div></div>
             </div>
         </div>
 
@@ -231,7 +219,6 @@
         </div>
     </div>
 
-    <!-- User Modal -->
     <div class="user-modal" id="userModal">
         <div class="user-modal-content">
             <div class="user-modal-title">¿Quién Eres?</div>
@@ -247,7 +234,6 @@
         </div>
     </div>
 
-    <!-- Budget Modal -->
     <div class="budget-modal" id="budgetModal">
         <div class="budget-modal-content">
             <div class="budget-modal-title" id="budgetModalTitle">Configurar Presupuesto</div>
@@ -260,7 +246,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div class="edit-modal" id="editModal">
         <div class="edit-modal-content">
             <div class="edit-modal-title">✏️ Editar Gasto</div>
@@ -297,7 +282,7 @@
                 <label class="form-label">Lugar personalizado</label>
                 <input type="text" id="editCustomLocation" placeholder="Escribe el lugar...">
             </div>
-            <div class="compartido-section show" id="editCompartidoSection" style="display:none;">
+            <div id="editCompartidoSection" style="display:none; background:rgba(93,173,226,0.05); border:1px solid rgba(93,173,226,0.2); border-radius:10px; padding:14px; margin-bottom:16px;">
                 <div class="form-label" style="margin-bottom:10px;">¿Quién participó?</div>
                 <div class="participantes-grid" id="editParticipantesGrid"></div>
                 <div class="form-label" style="margin-bottom:8px;">¿Cómo dividir?</div>
@@ -315,13 +300,16 @@
         </div>
     </div>
 
-    <!-- Stats Modal -->
     <div class="stats-modal" id="statsModal">
         <div class="stats-content">
             <div class="stats-title">📊 Estadísticas</div>
             <div class="stats-row total">
-                <span class="stats-label">GASTO TOTAL</span>
+                <span class="stats-label">GASTO TOTAL VIAJE</span>
                 <span class="stats-value">€<span id="statsTotalAmount">0</span></span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">Gasto de Hoy</span>
+                <span class="stats-value">€<span id="statsTodayAmount">0</span></span>
             </div>
             <div class="stats-row">
                 <span class="stats-label">Personal</span>
@@ -358,7 +346,6 @@
         let editType = 'personal';
         let editDivisionMode = 'parejo';
         let editParticipantes = [];
-        let editLocation = '';
         let budgetMode = 'total';
         let budgetTotal = parseFloat(localStorage.getItem('budgetTotal')) || 0;
         let budgetDays = parseInt(localStorage.getItem('budgetDays')) || 0;
@@ -370,50 +357,13 @@
             renderExpenses();
             renderParticipantes();
             updateBudgetBars();
+            document.getElementById('todayDateLabel').textContent = new Date().toLocaleDateString('es-ES');
             document.getElementById('concept').addEventListener('keypress', e => { if (e.key === 'Enter') addExpense(); });
             document.getElementById('userModal').addEventListener('click', e => { if (e.target.id === 'userModal') closeUserSelector(); });
             document.getElementById('statsModal').addEventListener('click', e => { if (e.target.id === 'statsModal') closeStats(); });
             document.getElementById('budgetModal').addEventListener('click', e => { if (e.target.id === 'budgetModal') closeBudgetModal(); });
             document.getElementById('editModal').addEventListener('click', e => { if (e.target.id === 'editModal') closeEditModal(); });
         });
-
-        // Budget
-        function openBudgetModal(mode) {
-            budgetMode = mode;
-            const title = document.getElementById('budgetModalTitle');
-            const input = document.getElementById('budgetInput');
-            const daysInput = document.getElementById('daysInput');
-            if (mode === 'total') {
-                title.textContent = '💰 Presupuesto Total';
-                input.placeholder = 'Presupuesto total (€)';
-                input.value = budgetTotal || '';
-                daysInput.style.display = 'none';
-            } else {
-                title.textContent = '📅 Presupuesto Diario';
-                input.placeholder = 'Presupuesto total (€)';
-                input.value = budgetTotal || '';
-                daysInput.style.display = 'block';
-                daysInput.value = budgetDays || '';
-            }
-            document.getElementById('budgetModal').classList.add('show');
-        }
-
-        function closeBudgetModal() { document.getElementById('budgetModal').classList.remove('show'); }
-
-        function saveBudget() {
-            const val = parseFloat(document.getElementById('budgetInput').value);
-            if (!val || val <= 0) { alert('Ingresa un presupuesto válido'); return; }
-            budgetTotal = val;
-            localStorage.setItem('budgetTotal', budgetTotal);
-            if (budgetMode === 'daily') {
-                const days = parseInt(document.getElementById('daysInput').value);
-                if (!days || days <= 0) { alert('Ingresa los días del viaje'); return; }
-                budgetDays = days;
-                localStorage.setItem('budgetDays', budgetDays);
-            }
-            closeBudgetModal();
-            updateBudgetBars();
-        }
 
         function getBudgetBarColor(pct) {
             if (pct <= 0.5) {
@@ -441,7 +391,7 @@
                 bar.style.background = getBudgetBarColor(pct);
                 document.getElementById('budgetTotalLabel').textContent = '€' + budgetTotal.toFixed(2);
             } else {
-                document.getElementById('budgetTotalLabel').textContent = '€0 — toca para configurar';
+                document.getElementById('budgetTotalLabel').textContent = 'toca para configurar';
             }
 
             if (budgetTotal > 0 && budgetDays > 0) {
@@ -452,11 +402,47 @@
                 bar.style.background = getBudgetBarColor(pct);
                 document.getElementById('budgetDailyLabel').textContent = '€' + dailyBudget.toFixed(2);
             } else {
-                document.getElementById('budgetDailyLabel').textContent = '€0 — toca para configurar';
+                document.getElementById('budgetDailyLabel').textContent = 'toca para configurar';
             }
         }
 
-        // Participantes
+        function openBudgetModal(mode) {
+            budgetMode = mode;
+            const title = document.getElementById('budgetModalTitle');
+            const input = document.getElementById('budgetInput');
+            const daysInput = document.getElementById('daysInput');
+            if (mode === 'total') {
+                title.textContent = '💰 Presupuesto Total';
+                input.placeholder = 'Presupuesto total (€)';
+                input.value = budgetTotal || '';
+                daysInput.style.display = 'none';
+            } else {
+                title.textContent = '📅 Presupuesto Diario';
+                input.placeholder = 'Presupuesto total del viaje (€)';
+                input.value = budgetTotal || '';
+                daysInput.style.display = 'block';
+                daysInput.value = budgetDays || '';
+            }
+            document.getElementById('budgetModal').classList.add('show');
+        }
+
+        function closeBudgetModal() { document.getElementById('budgetModal').classList.remove('show'); }
+
+        function saveBudget() {
+            const val = parseFloat(document.getElementById('budgetInput').value);
+            if (!val || val <= 0) { alert('Ingresa un presupuesto válido'); return; }
+            budgetTotal = val;
+            localStorage.setItem('budgetTotal', budgetTotal);
+            if (budgetMode === 'daily') {
+                const days = parseInt(document.getElementById('daysInput').value);
+                if (!days || days <= 0) { alert('Ingresa los días del viaje'); return; }
+                budgetDays = days;
+                localStorage.setItem('budgetDays', budgetDays);
+            }
+            closeBudgetModal();
+            updateBudgetBars();
+        }
+
         function renderParticipantes() {
             const grid = document.getElementById('participantesGrid');
             grid.innerHTML = USUARIOS.map(u => {
@@ -504,8 +490,7 @@
         }
 
         function renderMontosManual() {
-            const manual = document.getElementById('montosManual');
-            manual.innerHTML = participantesSeleccionados.map(u => `
+            document.getElementById('montosManual').innerHTML = participantesSeleccionados.map(u => `
                 <div class="monto-row">
                     <label>${u}</label>
                     <input type="number" id="monto_${u}" placeholder="0.00" step="0.01" min="0" inputmode="decimal" oninput="updatePreview()">
@@ -519,15 +504,11 @@
             if (selectedType !== 'compartido' || amount === 0) { preview.innerHTML = ''; return; }
             if (divisionMode === 'parejo') {
                 const total = participantesSeleccionados.length + 1;
-                const porPersona = amount / total;
-                preview.innerHTML = `Dividido entre ${total} personas → cada quien: <span>€${porPersona.toFixed(2)}</span>`;
+                preview.innerHTML = `Dividido entre ${total} personas → cada quien: <span>€${(amount/total).toFixed(2)}</span>`;
             } else {
                 let asignado = 0;
-                participantesSeleccionados.forEach(u => {
-                    const val = parseFloat(document.getElementById(`monto_${u}`)?.value) || 0;
-                    asignado += val;
-                });
-                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante (tuyo): <span>€${(amount - asignado).toFixed(2)}</span>`;
+                participantesSeleccionados.forEach(u => { asignado += parseFloat(document.getElementById(`monto_${u}`)?.value) || 0; });
+                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante (tuyo): <span>€${(amount-asignado).toFixed(2)}</span>`;
             }
         }
 
@@ -537,7 +518,7 @@
             if (sel.value === 'otro') {
                 grp.style.display = 'block';
                 selectedLocation = '';
-                document.getElementById('customLocation').addEventListener('input', e => { selectedLocation = e.target.value; });
+                document.getElementById('customLocation').oninput = e => { selectedLocation = e.target.value; };
             } else {
                 grp.style.display = 'none';
                 selectedLocation = sel.value;
@@ -558,9 +539,8 @@
             if (selectedType === 'compartido') {
                 if (participantesSeleccionados.length === 0) { alert('Selecciona quién participó'); return; }
                 if (divisionMode === 'parejo') {
-                    const total = participantesSeleccionados.length + 1;
-                    const porPersona = amount / total;
-                    participantesSeleccionados.forEach(u => { deudas[u] = parseFloat(porPersona.toFixed(2)); });
+                    const por = amount / (participantesSeleccionados.length + 1);
+                    participantesSeleccionados.forEach(u => { deudas[u] = parseFloat(por.toFixed(2)); });
                 } else {
                     participantesSeleccionados.forEach(u => {
                         const val = parseFloat(document.getElementById(`monto_${u}`)?.value) || 0;
@@ -579,7 +559,7 @@
             renderExpenses();
             updateBudgetBars();
             resetForm();
-            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '✅ Gasto guardado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+            notify('✅ Gasto guardado');
         }
 
         function resetForm() {
@@ -599,11 +579,21 @@
             document.getElementById('previewDivision').innerHTML = '';
         }
 
+        function notify(msg) {
+            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = msg;
+            document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+        }
+
         function renderExpenses() {
             const list = document.getElementById('expensesList');
+            const today = new Date().toLocaleDateString('es-ES');
+            const todayAmt = expenses.filter(e => e.date === today).reduce((s,e) => s + e.amount, 0);
+            const grandAmt = expenses.reduce((s,e) => s + e.amount, 0);
+            document.getElementById('totalAmount').textContent = todayAmt.toFixed(2);
+            document.getElementById('grandTotal').textContent = grandAmt.toFixed(2);
+
             if (expenses.length === 0) {
                 list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💰</div><p>Sin gastos registrados aún</p></div>';
-                document.getElementById('totalAmount').textContent = '0';
                 return;
             }
             list.innerHTML = expenses.map(e => {
@@ -630,7 +620,6 @@
                     </div>
                 </div>`;
             }).join('');
-            document.getElementById('totalAmount').textContent = expenses.reduce((s,e) => s + e.amount, 0).toFixed(2);
         }
 
         function deleteExpense(id) {
@@ -641,10 +630,6 @@
             localStorage.setItem('expenses', JSON.stringify(expenses));
             renderExpenses();
             updateBudgetBars();
-            showUndoNotification();
-        }
-
-        function showUndoNotification() {
             if (undoElement) undoElement.remove();
             if (undoTimer) clearTimeout(undoTimer);
             undoElement = document.createElement('div');
@@ -663,23 +648,19 @@
             if (undoElement) { undoElement.remove(); undoElement = null; }
             if (undoTimer) clearTimeout(undoTimer);
             lastDeleted = null;
-            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '↩ Gasto restaurado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+            notify('↩ Gasto restaurado');
         }
 
-        // Edit Modal
         function openEditModal(id) {
             const e = expenses.find(ex => ex.id === id);
             if (!e) return;
             editingId = id;
             editType = e.type;
             editDivisionMode = 'parejo';
-            editLocation = e.location;
-
             document.getElementById('editAmount').value = e.amount;
             document.getElementById('editConcept').value = e.concept;
-
-            const locSelect = document.getElementById('editLocation');
             const knownLocs = ['Múnich','Castillo Neuschwanstein','Praga','Verona','Salzburgo','Innsbruck','Lago de Garda'];
+            const locSelect = document.getElementById('editLocation');
             if (knownLocs.includes(e.location)) {
                 locSelect.value = e.location;
                 document.getElementById('editCustomLocationGroup').style.display = 'none';
@@ -688,7 +669,6 @@
                 document.getElementById('editCustomLocationGroup').style.display = 'block';
                 document.getElementById('editCustomLocation').value = e.location;
             }
-
             document.querySelectorAll('#editModal .type-btn').forEach(b => b.classList.remove('active'));
             if (e.type === 'personal') {
                 document.getElementById('editTypePersonal').classList.add('active');
@@ -699,7 +679,6 @@
                 editParticipantes = e.deudas ? Object.keys(e.deudas) : [];
                 renderEditParticipantes();
             }
-
             document.getElementById('editModal').classList.add('show');
         }
 
@@ -730,8 +709,7 @@
         }
 
         function renderEditParticipantes() {
-            const grid = document.getElementById('editParticipantesGrid');
-            grid.innerHTML = USUARIOS.map(u => {
+            document.getElementById('editParticipantesGrid').innerHTML = USUARIOS.map(u => {
                 const isPayer = u === currentUser;
                 const isSelected = editParticipantes.includes(u);
                 return `<button class="participante-btn ${isPayer ? 'payer' : (isSelected ? 'selected' : '')}"
@@ -752,8 +730,7 @@
         }
 
         function renderEditMontosManual() {
-            const manual = document.getElementById('editMontosManual');
-            manual.innerHTML = editParticipantes.map(u => `
+            document.getElementById('editMontosManual').innerHTML = editParticipantes.map(u => `
                 <div class="monto-row">
                     <label>${u}</label>
                     <input type="number" id="editmonto_${u}" placeholder="0.00" step="0.01" min="0" inputmode="decimal" oninput="updateEditPreview()">
@@ -762,13 +739,10 @@
 
         function updateEditLocation() {
             const sel = document.getElementById('editLocation');
-            const grp = document.getElementById('editCustomLocationGroup');
             if (sel.value === 'otro') {
-                grp.style.display = 'block';
-                editLocation = '';
+                document.getElementById('editCustomLocationGroup').style.display = 'block';
             } else {
-                grp.style.display = 'none';
-                editLocation = sel.value;
+                document.getElementById('editCustomLocationGroup').style.display = 'none';
             }
         }
 
@@ -778,15 +752,11 @@
             if (!preview || editType !== 'compartido' || amount === 0) { if(preview) preview.innerHTML = ''; return; }
             if (editDivisionMode === 'parejo') {
                 const total = editParticipantes.length + 1;
-                const porPersona = amount / total;
-                preview.innerHTML = `Dividido entre ${total} personas → cada quien: <span>€${porPersona.toFixed(2)}</span>`;
+                preview.innerHTML = `Dividido entre ${total} personas → cada quien: <span>€${(amount/total).toFixed(2)}</span>`;
             } else {
                 let asignado = 0;
-                editParticipantes.forEach(u => {
-                    const val = parseFloat(document.getElementById(`editmonto_${u}`)?.value) || 0;
-                    asignado += val;
-                });
-                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante: <span>€${(amount - asignado).toFixed(2)}</span>`;
+                editParticipantes.forEach(u => { asignado += parseFloat(document.getElementById(`editmonto_${u}`)?.value) || 0; });
+                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante: <span>€${(amount-asignado).toFixed(2)}</span>`;
             }
         }
 
@@ -797,14 +767,12 @@
             let location = locSelect.value === 'otro' ? document.getElementById('editCustomLocation').value.trim() : locSelect.value;
             if (!amount || amount <= 0 || !concept) { alert('Completa monto y concepto'); return; }
             if (!location) { alert('Selecciona un lugar'); return; }
-
             let deudas = {};
             if (editType === 'compartido') {
                 if (editParticipantes.length === 0) { alert('Selecciona quién participó'); return; }
                 if (editDivisionMode === 'parejo') {
-                    const total = editParticipantes.length + 1;
-                    const porPersona = amount / total;
-                    editParticipantes.forEach(u => { deudas[u] = parseFloat(porPersona.toFixed(2)); });
+                    const por = amount / (editParticipantes.length + 1);
+                    editParticipantes.forEach(u => { deudas[u] = parseFloat(por.toFixed(2)); });
                 } else {
                     editParticipantes.forEach(u => {
                         const val = parseFloat(document.getElementById(`editmonto_${u}`)?.value) || 0;
@@ -812,7 +780,6 @@
                     });
                 }
             }
-
             const idx = expenses.findIndex(e => e.id === editingId);
             if (idx > -1) {
                 expenses[idx] = { ...expenses[idx], amount, concept, location, type: editType, deudas };
@@ -821,14 +788,17 @@
                 updateBudgetBars();
             }
             closeEditModal();
-            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '✅ Gasto actualizado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+            notify('✅ Gasto actualizado');
         }
 
         function showStats() {
             const total = expenses.reduce((s,e) => s + e.amount, 0);
+            const today = new Date().toLocaleDateString('es-ES');
+            const todayAmt = expenses.filter(e => e.date === today).reduce((s,e) => s + e.amount, 0);
             const personal = expenses.filter(e => e.type === 'personal').reduce((s,e) => s + e.amount, 0);
             const compartido = expenses.filter(e => e.type === 'compartido').reduce((s,e) => s + e.amount, 0);
             document.getElementById('statsTotalAmount').textContent = total.toFixed(2);
+            document.getElementById('statsTodayAmount').textContent = todayAmt.toFixed(2);
             document.getElementById('statsPersonalAmount').textContent = personal.toFixed(2);
             document.getElementById('statsSharedAmount').textContent = compartido.toFixed(2);
 
@@ -846,8 +816,9 @@
             } else {
                 deudasList.innerHTML = Object.entries(deudas).map(([persona, items]) => {
                     const totalDeuda = items.reduce((s,i) => s + i.monto, 0);
-                    const detalles = items.map(i => `<div class="deuda-detalle">📍 ${i.location} — ${i.concept}: €${i.monto.toFixed(2)}</div>`).join('');
-                    return `<div class="deuda-card"><div class="deuda-nombre">👤 ${persona}</div>${detalles}<div class="deuda-total">Total: €${totalDeuda.toFixed(2)}</div></div>`;
+                    return `<div class="deuda-card"><div class="deuda-nombre">👤 ${persona}</div>
+                        ${items.map(i => `<div class="deuda-detalle">📍 ${i.location} — ${i.concept}: €${i.monto.toFixed(2)}</div>`).join('')}
+                        <div class="deuda-total">Total: €${totalDeuda.toFixed(2)}</div></div>`;
                 }).join('');
             }
 
@@ -865,7 +836,7 @@
         function selectUser(user) {
             currentUser = user; localStorage.setItem('currentUser', user); updateUserDisplay(); closeUserSelector();
             if (selectedType === 'compartido') { participantesSeleccionados = USUARIOS.filter(u => u !== currentUser); renderParticipantes(); }
-            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = `👤 ${user}`; document.body.appendChild(n); setTimeout(() => n.remove(), 2000);
+            notify(`👤 ${user}`);
         }
         function updateUserDisplay() { document.getElementById('userName').textContent = currentUser; }
     </script>
