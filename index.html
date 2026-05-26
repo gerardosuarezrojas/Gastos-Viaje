@@ -126,24 +126,18 @@
         .save-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 9999; white-space: nowrap; }
         .undo-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #2a2a3e; border: 1px solid var(--danger); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 9999; display: flex; align-items: center; gap: 12px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .undo-btn { background: var(--danger); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
-
-        /* Calendario */
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 16px; }
         .cal-header { font-size: 10px; font-weight: 700; text-align: center; color: var(--text-muted); text-transform: uppercase; padding: 4px 0; }
         .cal-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 2px solid transparent; position: relative; }
         .cal-day.empty { background: transparent; cursor: default; }
         .cal-day.past { background: var(--primary); color: var(--text-light); border-color: var(--border); }
-        .cal-day.past:active { border-color: var(--accent); }
         .cal-day.past.has-expenses { border-color: rgba(232,167,53,0.4); }
         .cal-day.today { background: rgba(232,167,53,0.2); color: var(--accent); border-color: var(--accent); }
         .cal-day.future { background: transparent; color: var(--border); cursor: default; border-color: transparent; }
-        .cal-day.outside { opacity: 0; pointer-events: none; }
         .cal-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 3px; }
         .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .cal-nav-btn { background: var(--primary); border: 1px solid var(--border); color: var(--text-light); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 16px; -webkit-appearance: none; }
         .cal-month { font-size: 14px; font-weight: 700; color: var(--accent); }
-
-        /* Day modal */
         .day-total { background: rgba(232,167,53,0.1); border: 1px solid var(--accent); border-radius: 8px; padding: 12px; text-align: center; margin-bottom: 16px; }
         .day-total-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
         .day-total-amount { font-size: 28px; font-weight: 700; color: var(--accent); }
@@ -151,8 +145,6 @@
         .day-expense-concept { font-size: 13px; font-weight: 600; color: var(--text-light); }
         .day-expense-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
         .day-expense-amount { font-size: 14px; font-weight: 700; color: var(--accent); }
-
-        /* Fechas viaje en user modal */
         .trip-dates { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; }
         .trip-dates-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; text-align: center; }
         .trip-dates input { margin-bottom: 10px; }
@@ -253,7 +245,6 @@
         </div>
     </div>
 
-    <!-- User Modal -->
     <div class="user-modal" id="userModal">
         <div class="user-modal-content">
             <div class="user-modal-title">¿Quién Eres?</div>
@@ -268,16 +259,15 @@
             <div class="trip-dates">
                 <div class="trip-dates-title">✈️ Fechas del Viaje</div>
                 <label class="form-label">Inicio del viaje</label>
-                <input type="date" id="tripStart" style="margin-bottom:10px;">
+                <input type="date" id="tripStart">
                 <label class="form-label">Fin del viaje</label>
-                <input type="date" id="tripEnd" style="margin-bottom:10px;">
+                <input type="date" id="tripEnd">
                 <button class="trip-dates-save" onclick="saveTripDates()">Guardar Fechas</button>
             </div>
             <button class="user-modal-close" onclick="closeUserSelector()">Cerrar</button>
         </div>
     </div>
 
-    <!-- Budget Modal -->
     <div class="budget-modal" id="budgetModal">
         <div class="budget-modal-content">
             <div class="budget-modal-title" id="budgetModalTitle">Configurar Presupuesto</div>
@@ -290,7 +280,6 @@
         </div>
     </div>
 
-    <!-- Calendar Modal -->
     <div class="calendar-modal" id="calendarModal">
         <div class="calendar-content">
             <div class="calendar-title">📆 Días del Viaje</div>
@@ -299,7 +288,7 @@
                 <span class="cal-month" id="calMonthLabel"></span>
                 <button class="cal-nav-btn" onclick="calNextMonth()">›</button>
             </div>
-            <div class="calendar-grid" id="calDaysHeader">
+            <div class="calendar-grid">
                 <div class="cal-header">Dom</div>
                 <div class="cal-header">Lun</div>
                 <div class="cal-header">Mar</div>
@@ -313,7 +302,6 @@
         </div>
     </div>
 
-    <!-- Day Modal -->
     <div class="day-modal" id="dayModal">
         <div class="day-content">
             <div class="day-title" id="dayModalTitle">Gastos del día</div>
@@ -326,7 +314,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div class="edit-modal" id="editModal">
         <div class="edit-modal-content">
             <div class="edit-modal-title">✏️ Editar Gasto</div>
@@ -343,7 +330,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Concepto</label>
-                <input type="text" id="editConcept" placeholder="Hotel, comida, entrada, etc." autocomplete="off">
+                <input type="text" id="editConcept" autocomplete="off">
             </div>
             <div class="form-group">
                 <label class="form-label">Lugar</label>
@@ -361,7 +348,7 @@
             </div>
             <div class="form-group" id="editCustomLocationGroup" style="display:none;">
                 <label class="form-label">Lugar personalizado</label>
-                <input type="text" id="editCustomLocation" placeholder="Escribe el lugar...">
+                <input type="text" id="editCustomLocation">
             </div>
             <div id="editCompartidoSection" style="display:none; background:rgba(93,173,226,0.05); border:1px solid rgba(93,173,226,0.2); border-radius:10px; padding:14px; margin-bottom:16px;">
                 <div class="form-label" style="margin-bottom:10px;">¿Quién participó?</div>
@@ -381,7 +368,6 @@
         </div>
     </div>
 
-    <!-- Stats Modal -->
     <div class="stats-modal" id="statsModal">
         <div class="stats-content">
             <div class="stats-title">📊 Estadísticas</div>
@@ -415,6 +401,7 @@
         }
 
         const USUARIOS = ['Dan', 'Luis', 'Martucha', 'Gorda', 'Papá', 'Gerar'];
+        const DAY1 = '22/5/2025'; // Fecha de inicio del viaje por defecto
         let expenses = [];
         let currentUser = localStorage.getItem('currentUser') || 'Gerar';
         let selectedType = 'personal';
@@ -432,13 +419,27 @@
         let budgetMode = 'total';
         let budgetTotal = parseFloat(localStorage.getItem('budgetTotal')) || 0;
         let budgetDays = parseInt(localStorage.getItem('budgetDays')) || 0;
-        let tripStart = localStorage.getItem('tripStart') || '';
-        let tripEnd = localStorage.getItem('tripEnd') || '';
+        let tripStart = localStorage.getItem('tripStart') || '2025-05-22';
+        let tripEnd = localStorage.getItem('tripEnd') || '2025-06-06';
         let calViewDate = new Date();
 
         document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('expenses');
             if (saved) { try { expenses = JSON.parse(saved); } catch(e) { expenses = []; } }
+
+            // Migrar gastos sin fecha al día 1 del viaje
+            const day1 = new Date(tripStart + 'T00:00:00').toLocaleDateString('es-ES');
+            let changed = false;
+            expenses.forEach(e => {
+                if (!e.date || e.date === 'undefined' || e.date === 'Invalid Date') {
+                    e.date = day1;
+                    changed = true;
+                }
+            });
+            if (changed) {
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+            }
+
             updateUserDisplay();
             renderExpenses();
             renderParticipantes();
@@ -453,7 +454,6 @@
             document.getElementById('dayModal').addEventListener('click', e => { if (e.target.id === 'dayModal') closeDayModal(); });
         });
 
-        // Budget
         function getBudgetBarColor(pct) {
             if (pct <= 0.5) { return `rgb(${Math.round(pct*2*255)}, 207, 100)`; }
             return `rgb(255, ${Math.round((1-(pct-0.5)*2)*207)}, 50)`;
@@ -513,7 +513,6 @@
             closeBudgetModal(); updateBudgetBars();
         }
 
-        // Trip dates
         function saveTripDates() {
             const start = document.getElementById('tripStart').value;
             const end = document.getElementById('tripEnd').value;
@@ -525,71 +524,45 @@
             notify('✅ Fechas guardadas');
         }
 
-        // Calendar
         function openCalendar() {
-            calViewDate = new Date();
+            calViewDate = new Date(tripStart + 'T00:00:00');
             renderCalendar();
-            if (tripStart) document.getElementById('tripStart').value = tripStart;
-            if (tripEnd) document.getElementById('tripEnd').value = tripEnd;
             document.getElementById('calendarModal').classList.add('show');
         }
 
         function closeCalendar() { document.getElementById('calendarModal').classList.remove('show'); }
-
-        function calPrevMonth() {
-            calViewDate.setMonth(calViewDate.getMonth() - 1);
-            renderCalendar();
-        }
-
-        function calNextMonth() {
-            calViewDate.setMonth(calViewDate.getMonth() + 1);
-            renderCalendar();
-        }
+        function calPrevMonth() { calViewDate.setMonth(calViewDate.getMonth() - 1); renderCalendar(); }
+        function calNextMonth() { calViewDate.setMonth(calViewDate.getMonth() + 1); renderCalendar(); }
 
         function renderCalendar() {
-            const today = new Date();
-            today.setHours(0,0,0,0);
+            const today = new Date(); today.setHours(0,0,0,0);
             const year = calViewDate.getFullYear();
             const month = calViewDate.getMonth();
             const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
             document.getElementById('calMonthLabel').textContent = `${monthNames[month]} ${year}`;
-
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            const startDate = tripStart ? new Date(tripStart + 'T00:00:00') : null;
-            const endDate = tripEnd ? new Date(tripEnd + 'T00:00:00') : null;
-
-            // Días con gastos
+            const startDate = new Date(tripStart + 'T00:00:00');
+            const endDate = new Date(tripEnd + 'T00:00:00');
             const daysWithExpenses = new Set(expenses.filter(e => e.user === currentUser).map(e => e.date));
-
             let html = '';
             for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
-
             for (let d = 1; d <= daysInMonth; d++) {
-                const date = new Date(year, month, d);
-                date.setHours(0,0,0,0);
+                const date = new Date(year, month, d); date.setHours(0,0,0,0);
                 const dateStr = date.toLocaleDateString('es-ES');
                 const isToday = date.getTime() === today.getTime();
                 const isPast = date < today;
-                const inTrip = (!startDate || date >= startDate) && (!endDate || date <= endDate);
+                const inTrip = date >= startDate && date <= endDate;
                 const hasExp = daysWithExpenses.has(dateStr);
-
                 let cls = 'cal-day';
                 let onclick = '';
-
-                if (isToday) {
-                    cls += ' today';
-                } else if (isPast && inTrip) {
+                if (isToday && inTrip) { cls += ' today'; }
+                else if (isPast && inTrip) {
                     cls += ' past' + (hasExp ? ' has-expenses' : '');
                     onclick = `onclick="openDayModal('${dateStr}')"`;
-                } else {
-                    cls += ' future';
-                }
-
+                } else { cls += ' future'; }
                 html += `<div class="${cls}" ${onclick}>${d}${hasExp && !isToday ? '<div class="cal-dot"></div>' : ''}</div>`;
             }
-
             document.getElementById('calGrid').innerHTML = html;
         }
 
@@ -622,7 +595,6 @@
 
         function closeDayModal() { document.getElementById('dayModal').classList.remove('show'); }
 
-        // Participantes
         function renderParticipantes() {
             document.getElementById('participantesGrid').innerHTML = USUARIOS.map(u => {
                 const isPayer = u === currentUser;
@@ -989,8 +961,8 @@
 
         function closeStats() { document.getElementById('statsModal').classList.remove('show'); }
         function openUserSelector() {
-            if (tripStart) document.getElementById('tripStart').value = tripStart;
-            if (tripEnd) document.getElementById('tripEnd').value = tripEnd;
+            document.getElementById('tripStart').value = tripStart;
+            document.getElementById('tripEnd').value = tripEnd;
             document.getElementById('userModal').classList.add('show');
         }
         function closeUserSelector() { document.getElementById('userModal').classList.remove('show'); }
