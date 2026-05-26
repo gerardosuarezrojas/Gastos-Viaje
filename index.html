@@ -33,10 +33,35 @@
         .user-display { display: flex; justify-content: space-between; align-items: center; }
         .user-name { font-size: 14px; font-weight: 600; color: var(--blue); text-transform: uppercase; }
         .edit-btn { background: rgba(93,173,226,0.2); color: var(--blue); border: 1px solid var(--blue); padding: 6px 10px; border-radius: 6px; font-size: 14px; cursor: pointer; -webkit-appearance: none; }
-        .total-section { background: linear-gradient(135deg, rgba(232,167,53,0.1) 0%, rgba(232,167,53,0.05) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: center; }
+        .total-section { background: linear-gradient(135deg, rgba(232,167,53,0.1) 0%, rgba(232,167,53,0.05) 100%); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; text-align: center; }
         .total-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
         .total-amount { font-size: 42px; font-weight: 700; color: var(--accent); }
         .total-currency { font-size: 24px; color: var(--accent-soft); }
+
+        /* Barras de Presupuesto */
+        .budget-section { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .budget-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 12px; }
+        .budget-bar-group { margin-bottom: 14px; }
+        .budget-bar-group:last-child { margin-bottom: 0; }
+        .budget-bar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; cursor: pointer; }
+        .budget-bar-label { font-size: 12px; font-weight: 600; color: var(--text-light); }
+        .budget-bar-amounts { font-size: 11px; color: var(--text-muted); }
+        .budget-bar-amounts span { color: var(--accent); font-weight: 700; }
+        .budget-bar-track { height: 10px; background: var(--primary); border-radius: 99px; overflow: hidden; }
+        .budget-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease, background 0.6s ease; width: 0%; }
+
+        /* Budget Modal */
+        .budget-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
+        .budget-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .budget-modal-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; }
+        .budget-modal-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
+        .budget-modal input { width: 100%; background: var(--primary); border: 1px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; font-size: 16px; -webkit-appearance: none; font-family: inherit; margin-bottom: 12px; }
+        .budget-modal input:focus { outline: none; border-color: var(--accent); }
+        .budget-modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-confirm { background: linear-gradient(135deg, var(--accent), var(--accent-soft)); color: var(--primary); border: none; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
+        .btn-cancel { background: var(--primary); color: var(--text-light); border: 1px solid var(--border); padding: 12px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
+
+        /* Form */
         .form-section { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
         .form-group { margin-bottom: 16px; }
         .form-label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 8px; }
@@ -64,6 +89,8 @@
         .monto-row input { padding: 8px 12px; font-size: 14px; }
         .preview-division { background: var(--primary); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
         .preview-division span { color: var(--accent); font-weight: 700; }
+
+        /* Expenses */
         .expenses-section { margin-bottom: 24px; }
         .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
         #expensesList { display: flex; flex-direction: column; gap: 12px; }
@@ -75,13 +102,17 @@
         .expense-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; color: var(--text-muted); }
         .expense-deudas { margin-top: 6px; font-size: 11px; color: var(--blue); }
         .expense-amount { font-size: 16px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+        .expense-actions { display: flex; gap: 6px; margin-top: 6px; }
+        .expense-edit { background: rgba(93,173,226,0.1); color: var(--blue); border: 1px solid var(--blue); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; -webkit-appearance: none; }
         .expense-delete { background: rgba(255,107,107,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; -webkit-appearance: none; }
         .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
-        .user-modal, .stats-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
-        .user-modal.show, .stats-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
-        .user-modal-content, .stats-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; }
-        .user-modal-title, .stats-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
+
+        /* Modals */
+        .user-modal, .stats-modal, .edit-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
+        .user-modal.show, .stats-modal.show, .edit-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .user-modal-content, .stats-content, .edit-modal-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; }
+        .user-modal-title, .stats-title, .edit-modal-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
         .stats-title { font-size: 18px; }
         .user-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .user-option { background: var(--primary); border: 2px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-align: center; -webkit-appearance: none; font-family: inherit; }
@@ -122,6 +153,29 @@
             <div><span class="total-currency">€</span><span class="total-amount" id="totalAmount">0</span></div>
         </div>
 
+        <!-- Barras de Presupuesto -->
+        <div class="budget-section">
+            <div class="budget-title">📊 Barras de Presupuesto</div>
+            <div class="budget-bar-group">
+                <div class="budget-bar-header" onclick="openBudgetModal('total')">
+                    <span class="budget-bar-label">💰 Presupuesto Total</span>
+                    <span class="budget-bar-amounts">€<span id="spentTotal">0</span> / <span id="budgetTotalLabel">€0 — toca para configurar</span></span>
+                </div>
+                <div class="budget-bar-track">
+                    <div class="budget-bar-fill" id="barTotal"></div>
+                </div>
+            </div>
+            <div class="budget-bar-group">
+                <div class="budget-bar-header" onclick="openBudgetModal('daily')">
+                    <span class="budget-bar-label">📅 Presupuesto Diario</span>
+                    <span class="budget-bar-amounts">€<span id="spentToday">0</span> / <span id="budgetDailyLabel">€0 — toca para configurar</span></span>
+                </div>
+                <div class="budget-bar-track">
+                    <div class="budget-bar-fill" id="barDaily"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="form-section">
             <div class="form-group">
                 <label class="form-label">Tipo de Gasto</label>
@@ -156,7 +210,6 @@
                 <label class="form-label" for="customLocation">Lugar Personalizado</label>
                 <input type="text" id="customLocation" placeholder="Escribe el lugar...">
             </div>
-
             <div class="compartido-section" id="compartidoSection">
                 <div class="form-label" style="margin-bottom:10px;">¿Quién participó?</div>
                 <div class="participantes-grid" id="participantesGrid"></div>
@@ -168,7 +221,6 @@
                 <div class="montos-manuales" id="montosManual"></div>
                 <div class="preview-division" id="previewDivision"></div>
             </div>
-
             <button class="btn-primary" onclick="addExpense()">💾 Guardar Gasto</button>
             <button class="btn-stats" onclick="showStats()">📊 Ver Estadísticas</button>
         </div>
@@ -179,6 +231,7 @@
         </div>
     </div>
 
+    <!-- User Modal -->
     <div class="user-modal" id="userModal">
         <div class="user-modal-content">
             <div class="user-modal-title">¿Quién Eres?</div>
@@ -194,6 +247,75 @@
         </div>
     </div>
 
+    <!-- Budget Modal -->
+    <div class="budget-modal" id="budgetModal">
+        <div class="budget-modal-content">
+            <div class="budget-modal-title" id="budgetModalTitle">Configurar Presupuesto</div>
+            <input type="number" id="budgetInput" placeholder="Presupuesto total (€)" inputmode="decimal" step="0.01" min="0">
+            <input type="number" id="daysInput" placeholder="Días del viaje" inputmode="numeric" min="1" style="display:none;">
+            <div class="budget-modal-btns">
+                <button class="btn-cancel" onclick="closeBudgetModal()">Cancelar</button>
+                <button class="btn-confirm" onclick="saveBudget()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="edit-modal" id="editModal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-title">✏️ Editar Gasto</div>
+            <div class="form-group">
+                <label class="form-label">Tipo</label>
+                <div class="type-selector">
+                    <button class="type-btn active" id="editTypePersonal" onclick="selectEditType('personal', event)">👤 Personal</button>
+                    <button class="type-btn" id="editTypeCompartido" onclick="selectEditType('compartido', event)">👥 Compartido</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Monto (€)</label>
+                <input type="number" id="editAmount" placeholder="0.00" step="0.01" min="0" inputmode="decimal" oninput="updateEditPreview()">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Concepto</label>
+                <input type="text" id="editConcept" placeholder="Hotel, comida, entrada, etc." autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Lugar</label>
+                <select id="editLocation" onchange="updateEditLocation()">
+                    <option value="">Selecciona un lugar...</option>
+                    <option value="Múnich">🏙️ Múnich</option>
+                    <option value="Castillo Neuschwanstein">🏰 Castillo Neuschwanstein</option>
+                    <option value="Praga">🌉 Praga</option>
+                    <option value="Verona">🌹 Verona</option>
+                    <option value="Salzburgo">🎼 Salzburgo</option>
+                    <option value="Innsbruck">⛰️ Innsbruck</option>
+                    <option value="Lago de Garda">🌊 Lago de Garda</option>
+                    <option value="otro">✏️ Agregar manualmente</option>
+                </select>
+            </div>
+            <div class="form-group" id="editCustomLocationGroup" style="display:none;">
+                <label class="form-label">Lugar personalizado</label>
+                <input type="text" id="editCustomLocation" placeholder="Escribe el lugar...">
+            </div>
+            <div class="compartido-section show" id="editCompartidoSection" style="display:none;">
+                <div class="form-label" style="margin-bottom:10px;">¿Quién participó?</div>
+                <div class="participantes-grid" id="editParticipantesGrid"></div>
+                <div class="form-label" style="margin-bottom:8px;">¿Cómo dividir?</div>
+                <div class="division-btns">
+                    <button class="division-btn active" id="editDivParejo" onclick="selectEditDivision('parejo', event)">🔀 Parejo</button>
+                    <button class="division-btn" id="editDivManual" onclick="selectEditDivision('manual', event)">✏️ Manual</button>
+                </div>
+                <div class="montos-manuales" id="editMontosManual"></div>
+                <div class="preview-division" id="editPreviewDivision"></div>
+            </div>
+            <div class="budget-modal-btns" style="margin-top:16px;">
+                <button class="btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                <button class="btn-confirm" onclick="saveEdit()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
     <div class="stats-modal" id="statsModal">
         <div class="stats-content">
             <div class="stats-title">📊 Estadísticas</div>
@@ -232,6 +354,14 @@
         let lastDeleted = null;
         let undoTimer = null;
         let undoElement = null;
+        let editingId = null;
+        let editType = 'personal';
+        let editDivisionMode = 'parejo';
+        let editParticipantes = [];
+        let editLocation = '';
+        let budgetMode = 'total';
+        let budgetTotal = parseFloat(localStorage.getItem('budgetTotal')) || 0;
+        let budgetDays = parseInt(localStorage.getItem('budgetDays')) || 0;
 
         document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('expenses');
@@ -239,11 +369,94 @@
             updateUserDisplay();
             renderExpenses();
             renderParticipantes();
+            updateBudgetBars();
             document.getElementById('concept').addEventListener('keypress', e => { if (e.key === 'Enter') addExpense(); });
             document.getElementById('userModal').addEventListener('click', e => { if (e.target.id === 'userModal') closeUserSelector(); });
             document.getElementById('statsModal').addEventListener('click', e => { if (e.target.id === 'statsModal') closeStats(); });
+            document.getElementById('budgetModal').addEventListener('click', e => { if (e.target.id === 'budgetModal') closeBudgetModal(); });
+            document.getElementById('editModal').addEventListener('click', e => { if (e.target.id === 'editModal') closeEditModal(); });
         });
 
+        // Budget
+        function openBudgetModal(mode) {
+            budgetMode = mode;
+            const title = document.getElementById('budgetModalTitle');
+            const input = document.getElementById('budgetInput');
+            const daysInput = document.getElementById('daysInput');
+            if (mode === 'total') {
+                title.textContent = '💰 Presupuesto Total';
+                input.placeholder = 'Presupuesto total (€)';
+                input.value = budgetTotal || '';
+                daysInput.style.display = 'none';
+            } else {
+                title.textContent = '📅 Presupuesto Diario';
+                input.placeholder = 'Presupuesto total (€)';
+                input.value = budgetTotal || '';
+                daysInput.style.display = 'block';
+                daysInput.value = budgetDays || '';
+            }
+            document.getElementById('budgetModal').classList.add('show');
+        }
+
+        function closeBudgetModal() { document.getElementById('budgetModal').classList.remove('show'); }
+
+        function saveBudget() {
+            const val = parseFloat(document.getElementById('budgetInput').value);
+            if (!val || val <= 0) { alert('Ingresa un presupuesto válido'); return; }
+            budgetTotal = val;
+            localStorage.setItem('budgetTotal', budgetTotal);
+            if (budgetMode === 'daily') {
+                const days = parseInt(document.getElementById('daysInput').value);
+                if (!days || days <= 0) { alert('Ingresa los días del viaje'); return; }
+                budgetDays = days;
+                localStorage.setItem('budgetDays', budgetDays);
+            }
+            closeBudgetModal();
+            updateBudgetBars();
+        }
+
+        function getBudgetBarColor(pct) {
+            if (pct <= 0.5) {
+                const r = Math.round(pct * 2 * 255);
+                return `rgb(${r}, 207, 100)`;
+            } else {
+                const p = (pct - 0.5) * 2;
+                const g = Math.round((1 - p) * 207);
+                return `rgb(255, ${g}, 50)`;
+            }
+        }
+
+        function updateBudgetBars() {
+            const total = expenses.reduce((s,e) => s + e.amount, 0);
+            const today = new Date().toLocaleDateString('es-ES');
+            const todayTotal = expenses.filter(e => e.date === today).reduce((s,e) => s + e.amount, 0);
+
+            document.getElementById('spentTotal').textContent = total.toFixed(2);
+            document.getElementById('spentToday').textContent = todayTotal.toFixed(2);
+
+            if (budgetTotal > 0) {
+                const pct = Math.min(total / budgetTotal, 1);
+                const bar = document.getElementById('barTotal');
+                bar.style.width = (pct * 100) + '%';
+                bar.style.background = getBudgetBarColor(pct);
+                document.getElementById('budgetTotalLabel').textContent = '€' + budgetTotal.toFixed(2);
+            } else {
+                document.getElementById('budgetTotalLabel').textContent = '€0 — toca para configurar';
+            }
+
+            if (budgetTotal > 0 && budgetDays > 0) {
+                const dailyBudget = budgetTotal / budgetDays;
+                const pct = Math.min(todayTotal / dailyBudget, 1);
+                const bar = document.getElementById('barDaily');
+                bar.style.width = (pct * 100) + '%';
+                bar.style.background = getBudgetBarColor(pct);
+                document.getElementById('budgetDailyLabel').textContent = '€' + dailyBudget.toFixed(2);
+            } else {
+                document.getElementById('budgetDailyLabel').textContent = '€0 — toca para configurar';
+            }
+        }
+
+        // Participantes
         function renderParticipantes() {
             const grid = document.getElementById('participantesGrid');
             grid.innerHTML = USUARIOS.map(u => {
@@ -314,8 +527,7 @@
                     const val = parseFloat(document.getElementById(`monto_${u}`)?.value) || 0;
                     asignado += val;
                 });
-                const restante = amount - asignado;
-                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante (tuyo): <span>€${restante.toFixed(2)}</span>`;
+                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante (tuyo): <span>€${(amount - asignado).toFixed(2)}</span>`;
             }
         }
 
@@ -359,15 +571,24 @@
             }
 
             const now = new Date();
-            expenses.unshift({ id: Date.now(), amount, concept, type: selectedType, date: now.toLocaleDateString('es-ES'), time: now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}), location, timestamp: now.getTime(), user: currentUser, deudas });
+            expenses.unshift({ id: Date.now(), amount, concept, type: selectedType,
+                date: now.toLocaleDateString('es-ES'),
+                time: now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'}),
+                location, timestamp: now.getTime(), user: currentUser, deudas });
             localStorage.setItem('expenses', JSON.stringify(expenses));
             renderExpenses();
+            updateBudgetBars();
+            resetForm();
+            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '✅ Gasto guardado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+        }
 
-            amountInput.value = ''; conceptInput.value = ''; locationSelect.value = '';
+        function resetForm() {
+            document.getElementById('amount').value = '';
+            document.getElementById('concept').value = '';
+            document.getElementById('location').value = '';
             document.getElementById('customLocationGroup').style.display = 'none';
             document.getElementById('customLocation').value = '';
-            selectedLocation = ''; divisionMode = 'parejo';
-            participantesSeleccionados = [];
+            selectedLocation = ''; divisionMode = 'parejo'; participantesSeleccionados = [];
             document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.type-btn')[0].classList.add('active');
             selectedType = 'personal';
@@ -376,8 +597,6 @@
             document.querySelectorAll('.division-btn')[0].classList.add('active');
             document.getElementById('montosManual').classList.remove('show');
             document.getElementById('previewDivision').innerHTML = '';
-
-            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '✅ Gasto guardado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
         }
 
         function renderExpenses() {
@@ -397,14 +616,17 @@
                         <div class="expense-concept">${e.concept}</div>
                         <div class="expense-meta">
                             <span>${e.type === 'personal' ? '👤 Personal' : '👥 Compartido'}</span>
-                            <span>🕐 ${e.time}</span>
+                            <span>📅 ${e.date} ${e.time}</span>
                             <span>📍 ${e.location}</span>
                         </div>
                         ${deudasHtml}
                     </div>
                     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
                         <div class="expense-amount">€${e.amount.toFixed(2)}</div>
-                        <button class="expense-delete" onclick="deleteExpense(${e.id})">✕ Borrar</button>
+                        <div class="expense-actions">
+                            <button class="expense-edit" onclick="openEditModal(${e.id})">✏️ Editar</button>
+                            <button class="expense-delete" onclick="deleteExpense(${e.id})">✕ Borrar</button>
+                        </div>
                     </div>
                 </div>`;
             }).join('');
@@ -418,6 +640,7 @@
             expenses.splice(idx, 1);
             localStorage.setItem('expenses', JSON.stringify(expenses));
             renderExpenses();
+            updateBudgetBars();
             showUndoNotification();
         }
 
@@ -428,10 +651,7 @@
             undoElement.className = 'undo-notification';
             undoElement.innerHTML = `🗑️ Gasto eliminado <button class="undo-btn" onclick="undoDelete()">↩ Deshacer</button>`;
             document.body.appendChild(undoElement);
-            undoTimer = setTimeout(() => {
-                if (undoElement) { undoElement.remove(); undoElement = null; }
-                lastDeleted = null;
-            }, 6000);
+            undoTimer = setTimeout(() => { if (undoElement) { undoElement.remove(); undoElement = null; } lastDeleted = null; }, 6000);
         }
 
         function undoDelete() {
@@ -439,10 +659,169 @@
             expenses.splice(lastDeleted.idx, 0, lastDeleted.expense);
             localStorage.setItem('expenses', JSON.stringify(expenses));
             renderExpenses();
+            updateBudgetBars();
             if (undoElement) { undoElement.remove(); undoElement = null; }
             if (undoTimer) clearTimeout(undoTimer);
             lastDeleted = null;
             const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '↩ Gasto restaurado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
+        }
+
+        // Edit Modal
+        function openEditModal(id) {
+            const e = expenses.find(ex => ex.id === id);
+            if (!e) return;
+            editingId = id;
+            editType = e.type;
+            editDivisionMode = 'parejo';
+            editLocation = e.location;
+
+            document.getElementById('editAmount').value = e.amount;
+            document.getElementById('editConcept').value = e.concept;
+
+            const locSelect = document.getElementById('editLocation');
+            const knownLocs = ['Múnich','Castillo Neuschwanstein','Praga','Verona','Salzburgo','Innsbruck','Lago de Garda'];
+            if (knownLocs.includes(e.location)) {
+                locSelect.value = e.location;
+                document.getElementById('editCustomLocationGroup').style.display = 'none';
+            } else {
+                locSelect.value = 'otro';
+                document.getElementById('editCustomLocationGroup').style.display = 'block';
+                document.getElementById('editCustomLocation').value = e.location;
+            }
+
+            document.querySelectorAll('#editModal .type-btn').forEach(b => b.classList.remove('active'));
+            if (e.type === 'personal') {
+                document.getElementById('editTypePersonal').classList.add('active');
+                document.getElementById('editCompartidoSection').style.display = 'none';
+            } else {
+                document.getElementById('editTypeCompartido').classList.add('active');
+                document.getElementById('editCompartidoSection').style.display = 'block';
+                editParticipantes = e.deudas ? Object.keys(e.deudas) : [];
+                renderEditParticipantes();
+            }
+
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        function closeEditModal() { document.getElementById('editModal').classList.remove('show'); editingId = null; }
+
+        function selectEditType(type, e) {
+            editType = type;
+            document.querySelectorAll('#editModal .type-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            const sec = document.getElementById('editCompartidoSection');
+            if (type === 'compartido') {
+                sec.style.display = 'block';
+                editParticipantes = USUARIOS.filter(u => u !== currentUser);
+                renderEditParticipantes();
+            } else {
+                sec.style.display = 'none';
+                editParticipantes = [];
+            }
+        }
+
+        function selectEditDivision(mode, e) {
+            editDivisionMode = mode;
+            document.querySelectorAll('#editModal .division-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            const manual = document.getElementById('editMontosManual');
+            if (mode === 'manual') { manual.classList.add('show'); renderEditMontosManual(); }
+            else { manual.classList.remove('show'); updateEditPreview(); }
+        }
+
+        function renderEditParticipantes() {
+            const grid = document.getElementById('editParticipantesGrid');
+            grid.innerHTML = USUARIOS.map(u => {
+                const isPayer = u === currentUser;
+                const isSelected = editParticipantes.includes(u);
+                return `<button class="participante-btn ${isPayer ? 'payer' : (isSelected ? 'selected' : '')}"
+                    onclick="toggleEditParticipante('${u}')" ${isPayer ? 'disabled' : ''}>
+                    ${isPayer ? '💳' : '👤'} ${u}${isPayer ? ' (tú)' : ''}
+                </button>`;
+            }).join('');
+            updateEditPreview();
+        }
+
+        function toggleEditParticipante(nombre) {
+            if (nombre === currentUser) return;
+            const idx = editParticipantes.indexOf(nombre);
+            if (idx > -1) editParticipantes.splice(idx, 1);
+            else editParticipantes.push(nombre);
+            renderEditParticipantes();
+            if (editDivisionMode === 'manual') renderEditMontosManual();
+        }
+
+        function renderEditMontosManual() {
+            const manual = document.getElementById('editMontosManual');
+            manual.innerHTML = editParticipantes.map(u => `
+                <div class="monto-row">
+                    <label>${u}</label>
+                    <input type="number" id="editmonto_${u}" placeholder="0.00" step="0.01" min="0" inputmode="decimal" oninput="updateEditPreview()">
+                </div>`).join('');
+        }
+
+        function updateEditLocation() {
+            const sel = document.getElementById('editLocation');
+            const grp = document.getElementById('editCustomLocationGroup');
+            if (sel.value === 'otro') {
+                grp.style.display = 'block';
+                editLocation = '';
+            } else {
+                grp.style.display = 'none';
+                editLocation = sel.value;
+            }
+        }
+
+        function updateEditPreview() {
+            const amount = parseFloat(document.getElementById('editAmount').value) || 0;
+            const preview = document.getElementById('editPreviewDivision');
+            if (!preview || editType !== 'compartido' || amount === 0) { if(preview) preview.innerHTML = ''; return; }
+            if (editDivisionMode === 'parejo') {
+                const total = editParticipantes.length + 1;
+                const porPersona = amount / total;
+                preview.innerHTML = `Dividido entre ${total} personas → cada quien: <span>€${porPersona.toFixed(2)}</span>`;
+            } else {
+                let asignado = 0;
+                editParticipantes.forEach(u => {
+                    const val = parseFloat(document.getElementById(`editmonto_${u}`)?.value) || 0;
+                    asignado += val;
+                });
+                preview.innerHTML = `Asignado: <span>€${asignado.toFixed(2)}</span> — Restante: <span>€${(amount - asignado).toFixed(2)}</span>`;
+            }
+        }
+
+        function saveEdit() {
+            const amount = parseFloat(document.getElementById('editAmount').value);
+            const concept = document.getElementById('editConcept').value.trim();
+            const locSelect = document.getElementById('editLocation');
+            let location = locSelect.value === 'otro' ? document.getElementById('editCustomLocation').value.trim() : locSelect.value;
+            if (!amount || amount <= 0 || !concept) { alert('Completa monto y concepto'); return; }
+            if (!location) { alert('Selecciona un lugar'); return; }
+
+            let deudas = {};
+            if (editType === 'compartido') {
+                if (editParticipantes.length === 0) { alert('Selecciona quién participó'); return; }
+                if (editDivisionMode === 'parejo') {
+                    const total = editParticipantes.length + 1;
+                    const porPersona = amount / total;
+                    editParticipantes.forEach(u => { deudas[u] = parseFloat(porPersona.toFixed(2)); });
+                } else {
+                    editParticipantes.forEach(u => {
+                        const val = parseFloat(document.getElementById(`editmonto_${u}`)?.value) || 0;
+                        if (val > 0) deudas[u] = val;
+                    });
+                }
+            }
+
+            const idx = expenses.findIndex(e => e.id === editingId);
+            if (idx > -1) {
+                expenses[idx] = { ...expenses[idx], amount, concept, location, type: editType, deudas };
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                renderExpenses();
+                updateBudgetBars();
+            }
+            closeEditModal();
+            const n = document.createElement('div'); n.className = 'save-notification'; n.textContent = '✅ Gasto actualizado'; document.body.appendChild(n); setTimeout(() => n.remove(), 2500);
         }
 
         function showStats() {
