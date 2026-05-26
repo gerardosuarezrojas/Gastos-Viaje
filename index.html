@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,6 +39,7 @@
         .total-currency { font-size: 24px; color: var(--accent-soft); }
         .grand-total { margin-top: 8px; font-size: 12px; color: var(--text-muted); }
         .grand-total span { color: var(--accent-soft); font-weight: 700; }
+        .btn-dias { background: rgba(93,173,226,0.15); color: var(--blue); border: 1px solid var(--blue); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; width: 100%; margin-top: 12px; -webkit-appearance: none; font-family: inherit; }
         .budget-section { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
         .budget-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 12px; }
         .budget-bar-group { margin-bottom: 14px; }
@@ -63,6 +63,7 @@
         .form-group { margin-bottom: 16px; }
         .form-label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 8px; }
         input, select { width: 100%; background: var(--primary); border: 1px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; font-size: 16px; -webkit-appearance: none; appearance: none; font-family: inherit; }
+        input[type="date"] { color-scheme: dark; }
         input:focus, select:focus { outline: none; border-color: var(--accent); }
         input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
         .type-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -102,10 +103,10 @@
         .expense-delete { background: rgba(255,107,107,0.1); color: var(--danger); border: 1px solid var(--danger); padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; -webkit-appearance: none; }
         .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
-        .user-modal, .stats-modal, .edit-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
-        .user-modal.show, .stats-modal.show, .edit-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
-        .user-modal-content, .stats-content, .edit-modal-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; }
-        .user-modal-title, .stats-title, .edit-modal-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
+        .user-modal, .stats-modal, .edit-modal, .calendar-modal, .day-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; }
+        .user-modal.show, .stats-modal.show, .edit-modal.show, .calendar-modal.show, .day-modal.show { display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .user-modal-content, .stats-content, .edit-modal-content, .calendar-content, .day-content { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; max-width: 400px; width: 100%; max-height: 85vh; overflow-y: auto; }
+        .user-modal-title, .stats-title, .edit-modal-title, .calendar-title, .day-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-align: center; }
         .stats-title { font-size: 18px; }
         .user-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .user-option { background: var(--primary); border: 2px solid var(--border); color: var(--text-light); padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; text-align: center; -webkit-appearance: none; font-family: inherit; }
@@ -122,9 +123,40 @@
         .location-item { background: var(--primary); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
         .location-name { color: var(--text-light); font-weight: 600; }
         .location-amount { color: var(--accent); font-weight: 700; }
-        .save-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 999; white-space: nowrap; }
-        .undo-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #2a2a3e; border: 1px solid var(--danger); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 999; display: flex; align-items: center; gap: 12px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .save-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 9999; white-space: nowrap; }
+        .undo-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #2a2a3e; border: 1px solid var(--danger); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; z-index: 9999; display: flex; align-items: center; gap: 12px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .undo-btn { background: var(--danger); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; -webkit-appearance: none; font-family: inherit; }
+
+        /* Calendario */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 16px; }
+        .cal-header { font-size: 10px; font-weight: 700; text-align: center; color: var(--text-muted); text-transform: uppercase; padding: 4px 0; }
+        .cal-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 2px solid transparent; position: relative; }
+        .cal-day.empty { background: transparent; cursor: default; }
+        .cal-day.past { background: var(--primary); color: var(--text-light); border-color: var(--border); }
+        .cal-day.past:active { border-color: var(--accent); }
+        .cal-day.past.has-expenses { border-color: rgba(232,167,53,0.4); }
+        .cal-day.today { background: rgba(232,167,53,0.2); color: var(--accent); border-color: var(--accent); }
+        .cal-day.future { background: transparent; color: var(--border); cursor: default; border-color: transparent; }
+        .cal-day.outside { opacity: 0; pointer-events: none; }
+        .cal-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; position: absolute; bottom: 3px; }
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .cal-nav-btn { background: var(--primary); border: 1px solid var(--border); color: var(--text-light); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 16px; -webkit-appearance: none; }
+        .cal-month { font-size: 14px; font-weight: 700; color: var(--accent); }
+
+        /* Day modal */
+        .day-total { background: rgba(232,167,53,0.1); border: 1px solid var(--accent); border-radius: 8px; padding: 12px; text-align: center; margin-bottom: 16px; }
+        .day-total-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+        .day-total-amount { font-size: 28px; font-weight: 700; color: var(--accent); }
+        .day-expense-item { background: var(--primary); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .day-expense-concept { font-size: 13px; font-weight: 600; color: var(--text-light); }
+        .day-expense-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .day-expense-amount { font-size: 14px; font-weight: 700; color: var(--accent); }
+
+        /* Fechas viaje en user modal */
+        .trip-dates { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; }
+        .trip-dates-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+        .trip-dates input { margin-bottom: 10px; }
+        .trip-dates-save { width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent-soft)); color: var(--primary); border: none; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; -webkit-appearance: none; font-family: inherit; margin-top: 4px; }
     </style>
 </head>
 <body>
@@ -145,6 +177,7 @@
             <div class="total-label">📅 Gasto Diario — <span id="todayDateLabel"></span></div>
             <div><span class="total-currency">€</span><span class="total-amount" id="totalAmount">0</span></div>
             <div class="grand-total">Total viaje: €<span id="grandTotal">0</span></div>
+            <button class="btn-dias" onclick="openCalendar()">📆 Ver Días Anteriores</button>
         </div>
 
         <div class="budget-section">
@@ -215,11 +248,12 @@
         </div>
 
         <div class="expenses-section">
-            <div class="section-title">Gastos Registrados</div>
+            <div class="section-title">Gastos de Hoy</div>
             <div id="expensesList"></div>
         </div>
     </div>
 
+    <!-- User Modal -->
     <div class="user-modal" id="userModal">
         <div class="user-modal-content">
             <div class="user-modal-title">¿Quién Eres?</div>
@@ -231,10 +265,19 @@
                 <button class="user-option" onclick="selectUser('Papá')">👤 Papá</button>
                 <button class="user-option" onclick="selectUser('Gerar')">👤 Gerar</button>
             </div>
+            <div class="trip-dates">
+                <div class="trip-dates-title">✈️ Fechas del Viaje</div>
+                <label class="form-label">Inicio del viaje</label>
+                <input type="date" id="tripStart" style="margin-bottom:10px;">
+                <label class="form-label">Fin del viaje</label>
+                <input type="date" id="tripEnd" style="margin-bottom:10px;">
+                <button class="trip-dates-save" onclick="saveTripDates()">Guardar Fechas</button>
+            </div>
             <button class="user-modal-close" onclick="closeUserSelector()">Cerrar</button>
         </div>
     </div>
 
+    <!-- Budget Modal -->
     <div class="budget-modal" id="budgetModal">
         <div class="budget-modal-content">
             <div class="budget-modal-title" id="budgetModalTitle">Configurar Presupuesto</div>
@@ -247,6 +290,43 @@
         </div>
     </div>
 
+    <!-- Calendar Modal -->
+    <div class="calendar-modal" id="calendarModal">
+        <div class="calendar-content">
+            <div class="calendar-title">📆 Días del Viaje</div>
+            <div class="cal-nav">
+                <button class="cal-nav-btn" onclick="calPrevMonth()">‹</button>
+                <span class="cal-month" id="calMonthLabel"></span>
+                <button class="cal-nav-btn" onclick="calNextMonth()">›</button>
+            </div>
+            <div class="calendar-grid" id="calDaysHeader">
+                <div class="cal-header">Dom</div>
+                <div class="cal-header">Lun</div>
+                <div class="cal-header">Mar</div>
+                <div class="cal-header">Mié</div>
+                <div class="cal-header">Jue</div>
+                <div class="cal-header">Vie</div>
+                <div class="cal-header">Sáb</div>
+            </div>
+            <div class="calendar-grid" id="calGrid"></div>
+            <button class="user-modal-close" onclick="closeCalendar()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Day Modal -->
+    <div class="day-modal" id="dayModal">
+        <div class="day-content">
+            <div class="day-title" id="dayModalTitle">Gastos del día</div>
+            <div class="day-total">
+                <div class="day-total-label">Total del día</div>
+                <div class="day-total-amount">€<span id="dayTotalAmount">0</span></div>
+            </div>
+            <div id="dayExpensesList"></div>
+            <button class="user-modal-close" onclick="closeDayModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
     <div class="edit-modal" id="editModal">
         <div class="edit-modal-content">
             <div class="edit-modal-title">✏️ Editar Gasto</div>
@@ -301,6 +381,7 @@
         </div>
     </div>
 
+    <!-- Stats Modal -->
     <div class="stats-modal" id="statsModal">
         <div class="stats-content">
             <div class="stats-title">📊 Estadísticas</div>
@@ -351,6 +432,9 @@
         let budgetMode = 'total';
         let budgetTotal = parseFloat(localStorage.getItem('budgetTotal')) || 0;
         let budgetDays = parseInt(localStorage.getItem('budgetDays')) || 0;
+        let tripStart = localStorage.getItem('tripStart') || '';
+        let tripEnd = localStorage.getItem('tripEnd') || '';
+        let calViewDate = new Date();
 
         document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('expenses');
@@ -365,11 +449,14 @@
             document.getElementById('statsModal').addEventListener('click', e => { if (e.target.id === 'statsModal') closeStats(); });
             document.getElementById('budgetModal').addEventListener('click', e => { if (e.target.id === 'budgetModal') closeBudgetModal(); });
             document.getElementById('editModal').addEventListener('click', e => { if (e.target.id === 'editModal') closeEditModal(); });
+            document.getElementById('calendarModal').addEventListener('click', e => { if (e.target.id === 'calendarModal') closeCalendar(); });
+            document.getElementById('dayModal').addEventListener('click', e => { if (e.target.id === 'dayModal') closeDayModal(); });
         });
 
+        // Budget
         function getBudgetBarColor(pct) {
             if (pct <= 0.5) { return `rgb(${Math.round(pct*2*255)}, 207, 100)`; }
-            else { return `rgb(255, ${Math.round((1-(pct-0.5)*2)*207)}, 50)`; }
+            return `rgb(255, ${Math.round((1-(pct-0.5)*2)*207)}, 50)`;
         }
 
         function updateBudgetBars() {
@@ -417,18 +504,125 @@
         function saveBudget() {
             const val = parseFloat(document.getElementById('budgetInput').value);
             if (!val || val <= 0) { alert('Ingresa un presupuesto válido'); return; }
-            budgetTotal = val;
-            localStorage.setItem('budgetTotal', budgetTotal);
+            budgetTotal = val; localStorage.setItem('budgetTotal', budgetTotal);
             if (budgetMode === 'daily') {
                 const days = parseInt(document.getElementById('daysInput').value);
                 if (!days || days <= 0) { alert('Ingresa los días del viaje'); return; }
-                budgetDays = days;
-                localStorage.setItem('budgetDays', budgetDays);
+                budgetDays = days; localStorage.setItem('budgetDays', budgetDays);
             }
-            closeBudgetModal();
-            updateBudgetBars();
+            closeBudgetModal(); updateBudgetBars();
         }
 
+        // Trip dates
+        function saveTripDates() {
+            const start = document.getElementById('tripStart').value;
+            const end = document.getElementById('tripEnd').value;
+            if (!start || !end) { alert('Selecciona ambas fechas'); return; }
+            if (start > end) { alert('La fecha de inicio debe ser antes que la de fin'); return; }
+            tripStart = start; tripEnd = end;
+            localStorage.setItem('tripStart', tripStart);
+            localStorage.setItem('tripEnd', tripEnd);
+            notify('✅ Fechas guardadas');
+        }
+
+        // Calendar
+        function openCalendar() {
+            calViewDate = new Date();
+            renderCalendar();
+            if (tripStart) document.getElementById('tripStart').value = tripStart;
+            if (tripEnd) document.getElementById('tripEnd').value = tripEnd;
+            document.getElementById('calendarModal').classList.add('show');
+        }
+
+        function closeCalendar() { document.getElementById('calendarModal').classList.remove('show'); }
+
+        function calPrevMonth() {
+            calViewDate.setMonth(calViewDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function calNextMonth() {
+            calViewDate.setMonth(calViewDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            const year = calViewDate.getFullYear();
+            const month = calViewDate.getMonth();
+            const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            document.getElementById('calMonthLabel').textContent = `${monthNames[month]} ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            const startDate = tripStart ? new Date(tripStart + 'T00:00:00') : null;
+            const endDate = tripEnd ? new Date(tripEnd + 'T00:00:00') : null;
+
+            // Días con gastos
+            const daysWithExpenses = new Set(expenses.filter(e => e.user === currentUser).map(e => e.date));
+
+            let html = '';
+            for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const date = new Date(year, month, d);
+                date.setHours(0,0,0,0);
+                const dateStr = date.toLocaleDateString('es-ES');
+                const isToday = date.getTime() === today.getTime();
+                const isPast = date < today;
+                const inTrip = (!startDate || date >= startDate) && (!endDate || date <= endDate);
+                const hasExp = daysWithExpenses.has(dateStr);
+
+                let cls = 'cal-day';
+                let onclick = '';
+
+                if (isToday) {
+                    cls += ' today';
+                } else if (isPast && inTrip) {
+                    cls += ' past' + (hasExp ? ' has-expenses' : '');
+                    onclick = `onclick="openDayModal('${dateStr}')"`;
+                } else {
+                    cls += ' future';
+                }
+
+                html += `<div class="${cls}" ${onclick}>${d}${hasExp && !isToday ? '<div class="cal-dot"></div>' : ''}</div>`;
+            }
+
+            document.getElementById('calGrid').innerHTML = html;
+        }
+
+        function openDayModal(dateStr) {
+            const dayExpenses = expenses.filter(e => e.date === dateStr && e.user === currentUser);
+            const total = dayExpenses.reduce((s,e) => s + e.amount, 0);
+            document.getElementById('dayModalTitle').textContent = `📅 ${dateStr}`;
+            document.getElementById('dayTotalAmount').textContent = total.toFixed(2);
+            const list = document.getElementById('dayExpensesList');
+            if (dayExpenses.length === 0) {
+                list.innerHTML = '<div class="empty-state" style="padding:20px"><p>Sin gastos este día</p></div>';
+            } else {
+                list.innerHTML = dayExpenses.map(e => {
+                    let deudasHtml = '';
+                    if (e.type === 'compartido' && e.deudas && Object.keys(e.deudas).length > 0) {
+                        deudasHtml = `<div style="font-size:10px;color:var(--blue);margin-top:2px;">${Object.entries(e.deudas).map(([u,v]) => `${u}: €${v.toFixed(2)}`).join(' · ')}</div>`;
+                    }
+                    return `<div class="day-expense-item">
+                        <div>
+                            <div class="day-expense-concept">${e.concept}</div>
+                            <div class="day-expense-meta">${e.type === 'personal' ? '👤' : '👥'} ${e.time} · 📍 ${e.location}</div>
+                            ${deudasHtml}
+                        </div>
+                        <div class="day-expense-amount">€${e.amount.toFixed(2)}</div>
+                    </div>`;
+                }).join('');
+            }
+            document.getElementById('dayModal').classList.add('show');
+        }
+
+        function closeDayModal() { document.getElementById('dayModal').classList.remove('show'); }
+
+        // Participantes
         function renderParticipantes() {
             document.getElementById('participantesGrid').innerHTML = USUARIOS.map(u => {
                 const isPayer = u === currentUser;
@@ -558,15 +752,16 @@
         function renderExpenses() {
             const list = document.getElementById('expensesList');
             const today = new Date().toLocaleDateString('es-ES');
-            const todayAmt = expenses.filter(e => e.date === today).reduce((s,e) => s + e.amount, 0);
+            const todayExpenses = expenses.filter(e => e.date === today);
+            const todayAmt = todayExpenses.reduce((s,e) => s + e.amount, 0);
             const grandAmt = expenses.reduce((s,e) => s + e.amount, 0);
             document.getElementById('totalAmount').textContent = todayAmt.toFixed(2);
             document.getElementById('grandTotal').textContent = grandAmt.toFixed(2);
-            if (expenses.length === 0) {
-                list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💰</div><p>Sin gastos registrados aún</p></div>';
+            if (todayExpenses.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💰</div><p>Sin gastos hoy aún</p></div>';
                 return;
             }
-            list.innerHTML = expenses.map(e => {
+            list.innerHTML = todayExpenses.map(e => {
                 let deudasHtml = '';
                 if (e.type === 'compartido' && e.deudas && Object.keys(e.deudas).length > 0) {
                     deudasHtml = '<div class="expense-deudas">' + Object.entries(e.deudas).map(([u,v]) => `${u}: €${v.toFixed(2)}`).join(' · ') + '</div>';
@@ -576,7 +771,7 @@
                         <div class="expense-concept">${e.concept}</div>
                         <div class="expense-meta">
                             <span>${e.type === 'personal' ? '👤 Personal' : '👥 Compartido'}</span>
-                            <span>📅 ${e.date} ${e.time}</span>
+                            <span>🕐 ${e.time}</span>
                             <span>📍 ${e.location}</span>
                         </div>${deudasHtml}
                     </div>
@@ -620,15 +815,11 @@
         function openEditModal(id) {
             const e = expenses.find(ex => ex.id === id);
             if (!e) return;
-            editingId = id;
-            editType = e.type;
-            editDivisionMode = 'manual';
+            editingId = id; editType = e.type; editDivisionMode = 'manual';
             editDeudas = e.deudas ? {...e.deudas} : {};
             editParticipantes = Object.keys(editDeudas);
-
             document.getElementById('editAmount').value = e.amount;
             document.getElementById('editConcept').value = e.concept;
-
             const knownLocs = ['Múnich','Castillo Neuschwanstein','Praga','Verona','Salzburgo','Innsbruck','Lago de Garda'];
             const locSelect = document.getElementById('editLocation');
             if (knownLocs.includes(e.location)) {
@@ -639,7 +830,6 @@
                 document.getElementById('editCustomLocationGroup').style.display = 'block';
                 document.getElementById('editCustomLocation').value = e.location;
             }
-
             document.querySelectorAll('#editModal .type-btn').forEach(b => b.classList.remove('active'));
             if (e.type === 'personal') {
                 document.getElementById('editTypePersonal').classList.add('active');
@@ -798,7 +988,11 @@
         }
 
         function closeStats() { document.getElementById('statsModal').classList.remove('show'); }
-        function openUserSelector() { document.getElementById('userModal').classList.add('show'); }
+        function openUserSelector() {
+            if (tripStart) document.getElementById('tripStart').value = tripStart;
+            if (tripEnd) document.getElementById('tripEnd').value = tripEnd;
+            document.getElementById('userModal').classList.add('show');
+        }
         function closeUserSelector() { document.getElementById('userModal').classList.remove('show'); }
         function selectUser(user) {
             currentUser = user; localStorage.setItem('currentUser', user); updateUserDisplay(); closeUserSelector();
